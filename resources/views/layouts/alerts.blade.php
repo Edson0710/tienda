@@ -16,18 +16,17 @@
 
 </script>
 @endif
-@isset($success)
-{{dd($success)}}
+@if (Session::has('success'))
 <script>
     $( document ).ready(function() {
         Swal.fire({
             title: 'Exito!',
-            text: '{{$success}}',
+            text: '{{Session::get('success')}}',
             icon: 'success',
-            confirmButtonColor: '#3085d6',
-            confirmButtonText: 'OK'
+            showConfirmButton: false,
+            timer: 1500
         })
     });
 </script>
-@endisset
+@endif
 @endpush
