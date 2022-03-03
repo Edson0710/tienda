@@ -12,5 +12,5 @@ Route::group(['prefix' => 'categorias'], function () {
     Route::post('store', [CategoriaController::class, 'store'])->name('admin.categoria.store');
     Route::get('edit/{id}', [CategoriaController::class, 'edit']);
     Route::post('update/{id}', [CategoriaController::class, 'update']);
-    Route::get('destroy/{id}', [CategoriaController::class, 'destroy']);
+    Route::get('destroy/{id}', [CategoriaController::class, 'destroy'])->name('admin.categoria.destroy');
 });

@@ -9,22 +9,6 @@
                 </button>
             </div>
             <div class="modal-body">
-
-                {{-- <div class="card card-primary">
-                    @if ($errors->any())
-                    <div class="alert alert-danger alert-dismissible">
-                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
-                            <font style="vertical-align: inherit;">
-                                <font style="vertical-align: inherit;">×</font>
-                            </font>
-                        </button>
-                        <ul>
-                            @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                    @endif --}}
                     <form action="{{route('admin.categoria.store')}}" class="" data-to="listado" method="POST">
                         @csrf
 

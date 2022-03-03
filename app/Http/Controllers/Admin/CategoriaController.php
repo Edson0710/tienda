@@ -106,6 +106,7 @@ class CategoriaController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Categoria::destroy($id);
+        return redirect()->route('admin.categoria.index')->with('success','Categoria eliminada correctamente');
     }
 }

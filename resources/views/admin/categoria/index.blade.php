@@ -42,9 +42,12 @@
                         </td>
                         <td>
                             <div class="text-center">
-                                <a href="" class="btn btn-danger btn-sm">
-                                    <i class="fas fa-trash"></i>
-                                </a>
+                                <form action="{{route('admin.categoria.destroy', $categoria->id)}}" method="get">
+                                    @csrf
+                                    <a href="" class="btn btn-danger btn-sm eliminar">
+                                        <i class="fas fa-trash"></i>
+                                    </a>
+                                </form>
                             </div>
                         </td>
                     </tr>
@@ -79,6 +82,23 @@ $(document).ready(function() {
             sInfo: "Mostrando _START_ a _END_ de _TOTAL_ registros",
         },
         responsive: true,
+    });
+    $('.eliminar').on('click', function(e) {
+        e.preventDefault();
+        var form = $(this).parents('form');
+        Swal.fire({
+            title: '¿Estás seguro?',
+            text: "¡No podrás revertir esto!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: '¡Sí, bórralo!'
+        }).then((result) => {
+            if (result.value) {
+                form.submit();
+            }
+        });
     });
 } );
 </script>
