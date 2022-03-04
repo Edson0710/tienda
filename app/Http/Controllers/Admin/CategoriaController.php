@@ -83,7 +83,10 @@ class CategoriaController extends Controller
      */
     public function edit($id)
     {
-        //
+        $categoria = Categoria::find($id);
+        return view('admin.categoria.edit',[
+            'categoria' => $categoria
+        ]);
     }
 
     /**
@@ -95,7 +98,29 @@ class CategoriaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validator = Validator::make($request->all(),[
+            'nombre' => 'required|string|unique:categorias,nombre,'.$id,
+        ],[
+            'required' => 'El campo :attribute es obligatorio',
+            'string' => 'El campo :attribute debe ser un texto',
+            'unique' => 'El campo :attribute ya existe'
+        ],[
+            'nombre' => 'Nombre'
+        ]);
+
+        if($validator->fails()){
+            return redirect()->route('admin.categoria.index')->withErrors($validator)->withInput();
+        }
+
+        try{
+            $categoria = Categoria::find($id);
+            $categoria->nombre = $request->nombre;
+            $categoria->save();
+            return redirect()->route('admin.categoria.index')->with('success','Categoria actualizada correctamente');
+        }
+        catch(\Exception $e){
+            return redirect()->route('admin.categoria.index')->withErrors('Error al actualizar la categoria');
+        }
     }
 
     /**

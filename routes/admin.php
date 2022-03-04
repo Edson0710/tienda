@@ -10,7 +10,7 @@ Route::group(['prefix' => 'categorias'], function () {
     Route::get('', [CategoriaController::class, 'index'])->name('admin.categoria.index');
     Route::get('create', [CategoriaController::class, 'create'])->name('admin.categoria.create');
     Route::post('store', [CategoriaController::class, 'store'])->name('admin.categoria.store');
-    Route::get('edit/{id}', [CategoriaController::class, 'edit']);
-    Route::post('update/{id}', [CategoriaController::class, 'update']);
+    Route::get('edit/{id}', [CategoriaController::class, 'edit'])->name('admin.categoria.edit');
+    Route::put('update/{id}', [CategoriaController::class, 'update'])->name('admin.categoria.update');
     Route::get('destroy/{id}', [CategoriaController::class, 'destroy'])->name('admin.categoria.destroy');
 });

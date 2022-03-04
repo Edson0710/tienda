@@ -35,7 +35,8 @@
                         <td>{{$categoria->nombre}}</td>
                         <td>
                             <div class="text-center">
-                                <a href="" class="btn btn-warning btn-sm">
+                                <a class="btn btn-warning btn-sm js-remote-a"
+                                href="{{route('admin.categoria.edit', $categoria->id)}}" data-to="modal-edit">
                                     <i class="fas fa-edit"></i>
                                 </a>
                             </div>
@@ -58,6 +59,8 @@
     </div>
 </div>
 
+<div id="modal-edit"></div>
+
 @include('admin.categoria.create')
 @stop
 
@@ -66,6 +69,7 @@
 @stop
 
 @section('js')
+<script src="{{asset('js/main.js')}}"></script>
 <script>
 $(document).ready(function() {
     console.log("test");
