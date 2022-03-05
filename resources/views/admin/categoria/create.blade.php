@@ -1,5 +1,14 @@
-
-<div class="modal fade" id="modal-lg">
+<script src="{{ asset('js/main.js') }}"></script>
+<script>
+    $(document).ready(function () {
+        console.log('ready');
+        $('#modal-add').modal('toggle');
+    });
+    $("#modalclick").click(function () {
+            $("#modal-add").modal("hide");
+    });
+</script>
+<div class="modal fade" id="modal-add">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
@@ -9,7 +18,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                    <form action="{{route('admin.categoria.store')}}" class="" data-to="listado" method="POST">
+                    <form action="{{route('admin.categoria.store')}}" class="js-remote-form" data-to="listado" method="POST">
                         @csrf
 
                         <div class="card-body">

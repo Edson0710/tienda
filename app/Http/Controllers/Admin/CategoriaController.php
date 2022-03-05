@@ -50,17 +50,17 @@ class CategoriaController extends Controller
         ]);
 
         if($validator->fails()){
-            return redirect()->route('admin.categoria.index')->withErrors($validator)->withInput();
+            return redirect()->route('admin.categoria.listado')->withErrors($validator)->withInput();
         }
 
         try{
             $categoria = new Categoria();
             $categoria->nombre = $request->nombre;
             $categoria->save();
-            return redirect()->route('admin.categoria.index')->with('success','Categoria creada correctamente');
+            return redirect()->route('admin.categoria.listado')->with('success','Categoria creada correctamente');
         }
         catch(\Exception $e){
-            return redirect()->route('admin.categoria.index')->withErrors('Error al crear la categoria');
+            return redirect()->route('admin.categoria.listado')->withErrors('Error al crear la categoria');
         }
     }
 
@@ -116,7 +116,9 @@ class CategoriaController extends Controller
             $categoria = Categoria::find($id);
             $categoria->nombre = $request->nombre;
             $categoria->save();
-            return redirect()->route('admin.categoria.index')->with('success','Categoria actualizada correctamente');
+            return view('admin.categoria.listado',[
+                'categorias' => Categoria::all(),
+            ])->with('success','Categoria actualizada correctamente');
         }
         catch(\Exception $e){
             return redirect()->route('admin.categoria.index')->withErrors('Error al actualizar la categoria');
@@ -133,5 +135,11 @@ class CategoriaController extends Controller
     {
         Categoria::destroy($id);
         return redirect()->route('admin.categoria.index')->with('success','Categoria eliminada correctamente');
+    }
+
+    public function listado(){
+        return view('admin.categoria.listado',[
+            'categorias' => Categoria::all()
+        ]);
     }
 }

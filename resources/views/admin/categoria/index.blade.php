@@ -12,56 +12,21 @@
         <div class="card-header">
             <div class="row">
                 <div class="col-12">
-                    <a href="{{route('admin.categoria.create')}}" class="btn btn-success float-right" data-toggle="modal" data-target="#modal-lg">
+                    <a href="{{route('admin.categoria.create')}}" class="btn btn-success float-right js-remote-a" data-to="modal-edit">
                         <i class="fas fa-plus"></i>
                         Nueva Categoría
                     </a>
                 </div>
             </div>
         </div>
-        @include('layouts.alerts')
-        <div class="card-body table-responsive">
-            <table id="example" class="table table-striped table-bordered " style="width:100%">
-                <thead>
-                    <tr>
-                        <th>Nombre</th>
-                        <th>Editar</th>
-                        <th>Eliminar</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($categorias as $categoria)
-                    <tr>
-                        <td>{{$categoria->nombre}}</td>
-                        <td>
-                            <div class="text-center">
-                                <a class="btn btn-warning btn-sm js-remote-a"
-                                href="{{route('admin.categoria.edit', $categoria->id)}}" data-to="modal-edit">
-                                    <i class="fas fa-edit"></i>
-                                </a>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="text-center">
-                                <form action="{{route('admin.categoria.destroy', $categoria->id)}}" method="get">
-                                    @csrf
-                                    <a href="" class="btn btn-danger btn-sm eliminar">
-                                        <i class="fas fa-trash"></i>
-                                    </a>
-                                </form>
-                            </div>
-                        </td>
-                    </tr>
-                    @endforeach
-                </tbody>
-            </table>
+        <div id="listado" class="card-body table-responsive">
+            @include('admin.categoria.listado')
         </div>
     </div>
 </div>
 
 <div id="modal-edit"></div>
 
-@include('admin.categoria.create')
 @stop
 
 @section('css')
@@ -70,23 +35,9 @@
 
 @section('js')
 <script src="{{asset('js/main.js')}}"></script>
+<script src="{{asset('js/datatable.js')}}"></script>
 <script>
 $(document).ready(function() {
-    console.log("test");
-    $('#example').DataTable({
-        dom: 'Bfrtip',
-        language: {
-            search: "Buscar:",
-            oPaginate: {
-                sFirst: "Primero",
-                sLast: "Último",
-                sNext: "Siguiente",
-                sPrevious: "Anterior"
-            },
-            sInfo: "Mostrando _START_ a _END_ de _TOTAL_ registros",
-        },
-        responsive: true,
-    });
     $('.eliminar').on('click', function(e) {
         e.preventDefault();
         var form = $(this).parents('form');

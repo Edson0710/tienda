@@ -16,7 +16,7 @@
             <div class="modal-body">
 
                 <div class="card card-primary">
-                    <form action="{{route('admin.categoria.update', $categoria->id)}}" class="js-remote" data-to="listado"
+                    <form action="{{route('admin.categoria.update', $categoria->id)}}" class="js-remote-form" data-to="listado"
                         method="POST">
                         @csrf
                         @method('PUT')

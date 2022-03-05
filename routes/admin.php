@@ -13,4 +13,5 @@ Route::group(['prefix' => 'categorias'], function () {
     Route::get('edit/{id}', [CategoriaController::class, 'edit'])->name('admin.categoria.edit');
     Route::put('update/{id}', [CategoriaController::class, 'update'])->name('admin.categoria.update');
     Route::get('destroy/{id}', [CategoriaController::class, 'destroy'])->name('admin.categoria.destroy');
+    Route::get('listado', [CategoriaController::class, 'listado'])->name('admin.categoria.listado');
 });
