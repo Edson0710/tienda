@@ -1,12 +1,13 @@
 <script src="{{ asset('js/main.js') }}"></script>
 <script>
     $(document).ready(function () {
-        console.log('ready');
+        console.log("ready!");
         $('#modal-add').modal('toggle');
     });
     $("#modalclick").click(function () {
             $("#modal-add").modal("hide");
     });
+
 </script>
 <div class="modal fade" id="modal-add">
     <div class="modal-dialog modal-lg">

@@ -1,8 +1,10 @@
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 @if($errors->any())
 @foreach ($errors->all() as $error)
-    {{$mensaje = $error}}
-    var msj = '{{$mensaje}}'+ "\n" + msj;
+    @php $mensaje = $error; @endphp
+    <script>
+        var msj = '{{$mensaje}}'+ "\n" + msj;
+    </script>
 @endforeach
 <script>
         Swal.fire({
