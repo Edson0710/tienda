@@ -64,6 +64,7 @@ class CategoriaController extends Controller
         }
     }
 
+
     /**
      * Display the specified resource.
      *
@@ -109,19 +110,17 @@ class CategoriaController extends Controller
         ]);
 
         if($validator->fails()){
-            return redirect()->route('admin.categoria.index')->withErrors($validator)->withInput();
+            return redirect()->route('admin.categoria.listado')->withErrors($validator)->withInput();
         }
 
         try{
             $categoria = Categoria::find($id);
             $categoria->nombre = $request->nombre;
             $categoria->save();
-            return view('admin.categoria.listado',[
-                'categorias' => Categoria::all(),
-            ])->with('success','Categoria actualizada correctamente');
+            return redirect()->route('admin.categoria.listado')->with('success','Categoria actualizada correctamente');
         }
         catch(\Exception $e){
-            return redirect()->route('admin.categoria.index')->withErrors('Error al actualizar la categoria');
+            return redirect()->route('admin.categoria.listado')->withErrors('Error al actualizar la categoria');
         }
     }
 

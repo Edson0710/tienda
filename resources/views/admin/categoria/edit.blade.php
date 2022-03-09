@@ -1,10 +1,14 @@
+<script src="{{ asset('js/js-remote-form.js') }}"></script>
 <script>
     $(document).ready(function () {
-        console.log('ready');
-        $('#modal-editar').modal('toggle');
+        console.log("edit");
+        $('#modal-ed').modal('toggle');
     });
-</script>
-<div class="modal fade" id="modal-editar">
+    $("#modalclick").click(function () {
+        $("#modal-ed").modal("hide");
+    });
+</script> 
+<div class="modal fade" id="modal-ed">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
