@@ -19,7 +19,7 @@
             </div>
             <div class="modal-footer">
                 <button data-action="{{route('categorias.store')}}" data-form="#form-categoria" data-method="POST"
-                data-container="#listado" type="button" class="btn btn-primary store">Guardar</button>
+                data-container="#listado" type="button" class="btn btn-primary store" data-modal="#modal-crate">Guardar</button>
             </form>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
             </div>
