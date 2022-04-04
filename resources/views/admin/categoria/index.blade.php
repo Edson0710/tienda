@@ -8,9 +8,11 @@
 @section('content')
 
 <div class="col-12" id="contenedor">
-    @include('admin.categoria.listado')
+    <a class="btn btn-primary create" href="{{route('categorias.create')}}" data-to="modal">Crear</a>
+    <div id="listado">
+        @include('admin.categoria.listado')
+    </div>
 </div>
-
 
 @stop
 
@@ -19,6 +21,6 @@
 @stop
 
 @section('js')
-<script src="https://code.jquery.com/jquery-3.5.1.js" crossorigin="anonymous"></script>
-@stack('scripts')
+<script src="{{asset('js/create.js')}}"></script>
+{{-- <script src="https://code.jquery.com/jquery-3.5.1.js" crossorigin="anonymous"></script> --}}
 @stop

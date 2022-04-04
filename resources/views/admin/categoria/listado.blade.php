@@ -1,58 +1,39 @@
-<div class="card">
-    <div class="card-header">
-        <div class="row">
-            <div class="col-12">
-                <a href="{{route('admin.categoria.create')}}" class="btn btn-success float-right js-remote-add"
-                    data-to="contenedor">
-                    <i class="fas fa-plus"></i>
-                    Nueva Categoría
+@include('layouts.alerts')
+<div class="table-responsive">
+    <table id="table" class="table table-striped table-bordered">
+        <thead>
+          <tr>
+            <th scope="col">Nombre</th>
+            <th scope="col">Editar</th>
+            <th scope="col">Eliminar</th>
+          </tr>
+        </thead>
+        <tbody>
+        @foreach ($categorias as $categoria)
+          <tr>
+            <td>{{$categoria->nombre}}</td>
+            <td class="text-center">
+                <a href="{{route('categorias.edit', $categoria)}}" class="btn btn-warning">
+                    <i class="fas fa-edit"></i>
                 </a>
-            </div>
-        </div>
-    </div>
-    <div id="listado" class="card-body table-responsive">
-        @include('layouts.alerts')
-
-        <table id="example" class="table table-striped table-bordered " style="width:100%">
-            <thead>
-                <tr>
-                    <th>Nombre</th>
-                    <th>Editar</th>
-                    <th>Eliminar</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($categorias as $categoria)
-                <tr>
-                    <td>{{$categoria->nombre}}</td>
-                    <td>
-                        <div class="text-center">
-                            <a class="btn btn-warning btn-sm js-remote-edit"
-                                href="{{route('admin.categoria.edit', $categoria->id)}}" data-to="modal-edit">
-                                <i class="fas fa-edit"></i>
-                            </a>
-                        </div>
-                    </td>
-                    <td>
-                        <div class="text-center">
-                            <form action="{{route('admin.categoria.destroy', $categoria->id)}}" method="get">
-                                @csrf
-                                <a href="" class="btn btn-danger btn-sm eliminar">
-                                    <i class="fas fa-trash"></i>
-                                </a>
-                            </form>
-                        </div>
-                    </td>
-                </tr>
-                @endforeach
-            </tbody>
-        </table>
-    </div>
+            </td>
+            <td class="text-center">
+                <form action="{{route('categorias.destroy', $categoria->id)}}" method="POST">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="btn btn-danger">
+                        <i class="fas fa-trash-alt"></i>
+                    </button>
+                </form>
+            </td>
+          </tr>
+        @endforeach
+        </tbody>
+      </table>
 </div>
 
-@push('scripts')
-<script src="{{asset('js/js-remote-edit.js')}}"></script> 
-<script src="{{asset('js/js-remote-add.js')}}"></script> 
-<script src="{{asset('js/js-delete.js')}}"></script>
+<div id="modal"></div>
+
+@push('js')
 <script src="{{asset('js/datatable.js')}}"></script>
 @endpush

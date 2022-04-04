@@ -1,4 +1,4 @@
-$('#example').DataTable({
+$('#table').DataTable({
     bDestroy: true,
     dom: 'Bfrtip',
     language: {

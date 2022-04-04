@@ -1,6 +1,6 @@
 $(document).ready(function() {
-    console.log('js-remote-add.js');
-    $('.js-remote-add').on('click', function(e){
+    $('.create').on('click', function(e){
+        console.log('create.js');
         e.preventDefault();
         var div = $(this).attr('data-to');
         var capa = $('#'+div);
