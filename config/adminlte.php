@@ -45,12 +45,12 @@ return [
     |
     */
 
-    'logo' => 'Mi Tienda',
-    'logo_img' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
-    'logo_img_class' => 'brand-image img-circle elevation-3',
+    'logo' => 'Arte y Diseño S.A.',
+    'logo_img' => 'images/logos/logo-gris.png',
+    'logo_img_class' => 'brand-image',
     'logo_img_xl' => null,
     'logo_img_xl_class' => 'brand-image-xs',
-    'logo_img_alt' => 'AdminLTE',
+    'logo_img_alt' => 'Arte y Diseño Santa Anita',
 
     /*
     |--------------------------------------------------------------------------
@@ -171,7 +171,7 @@ return [
     'right_sidebar_icon' => 'fas fa-cogs',
     'right_sidebar_theme' => 'dark',
     'right_sidebar_slide' => true,
-    'right_sidebar_push' => true,
+    'right_sidebar_push' => false,
     'right_sidebar_scrollbar_theme' => 'os-theme-light',
     'right_sidebar_scrollbar_auto_hide' => 'l',
 
@@ -246,78 +246,32 @@ return [
             'url'  => 'admin/blog',
             'can'  => 'manage-blog',
         ],
-        // [
-        //     'text'        => 'pages',
-        //     'url'         => 'admin/pages',
-        //     'icon'        => 'far fa-fw fa-file',
-        //     'label'       => 4,
-        //     'label_color' => 'success',
-        // ],
         ['header' => 'OPCIONES ADMINISTRADOR'],
-        // [
-        //     'text' => 'profile',
-        //     'url'  => 'admin/settings',
-        //     'icon' => 'fas fa-fw fa-user',
-        // ],
-        // [
-        //     'text' => 'change_password',
-        //     'url'  => 'admin/settings',
-        //     'icon' => 'fas fa-fw fa-lock',
-        // ],
         [
-            'text'    => 'Catálogos',
-            'icon'    => 'fas fa-fw fa-share',
+            'text' => 'Pedidos',
+            'url'  => 'admin/settings',
+            'icon' => 'fas fa-fw fa-receipt',
+        ],
+        [
+            'text'    => 'Base de datos',
+            'icon'    => 'fas fa-fw fa-database',
             'submenu' => [
                 [
                     'text' => 'Categorías',
+                    'icon'    => 'fas fa-fw fa-store',
                     'url'  => 'admin/categorias',
                 ],
-                // [
-                //     'text'    => 'level_one',
-                //     'url'     => '#',
-                    // 'submenu' => [
-                    //     [
-                    //         'text' => 'level_two',
-                    //         'url'  => '#',
-                    //     ],
-                    //     [
-                    //         'text'    => 'level_two',
-                    //         'url'     => '#',
-                    //         'submenu' => [
-                    //             [
-                    //                 'text' => 'level_three',
-                    //                 'url'  => '#',
-                    //             ],
-                    //             [
-                    //                 'text' => 'level_three',
-                    //                 'url'  => '#',
-                    //             ],
-                    //         ],
-                    //     ],
-                    // ],
-                // ],
-                // [
-                //     'text' => 'level_one',
-                //     'url'  => '#',
-                // ],
+                [
+                    'text' => 'Productos',
+                    'icon'    => 'fas fa-fw fa-chair',
+                    'url'  => 'admin/productos',
+                ],
             ],
         ],
-        // ['header' => 'labels'],
-        // [
-        //     'text'       => 'important',
-        //     'icon_color' => 'red',
-        //     'url'        => '#',
-        // ],
-        // [
-        //     'text'       => 'warning',
-        //     'icon_color' => 'yellow',
-        //     'url'        => '#',
-        // ],
-        // [
-        //     'text'       => 'information',
-        //     'icon_color' => 'cyan',
-        //     'url'        => '#',
-        // ],
+        [
+            'text'    => 'Pedidos',
+            'icon'    => 'fas fa-fw fa-database',
+        ],
     ],
 
     /*
