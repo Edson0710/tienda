@@ -13,7 +13,7 @@
           <tr>
             <td>{{$categoria->nombre}}</td>
             <td class="text-center">
-                <a href="{{route('categorias.edit', $categoria)}}" class="btn btn-warning">
+                <a href="{{route('categorias.edit', $categoria)}}" data-to="modal" class="btn btn-warning edit">
                     <i class="fas fa-edit"></i>
                 </a>
             </td>
@@ -36,5 +36,7 @@
 
 @push('js')
 <script src="{{asset('js/datatable.js')}}"></script>
+<script src="{{asset('js/edit.js')}}"></script>
 @endpush
 <script src="{{asset('js/datatable.js')}}"></script>
+<script src="{{asset('js/edit.js')}}"></script>
