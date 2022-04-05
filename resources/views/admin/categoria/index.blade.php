@@ -7,9 +7,9 @@
 
 @section('content')
 
-<div class="col-12" id="contenedor">
+<div class="col-12" id="contenedor" class="my-5">
     <a class="btn btn-primary create" href="{{route('categorias.create')}}" data-to="modal">Crear</a>
-    <div id="listado">
+    <div id="listado" class="pb-3">
         @include('admin.categoria.listado')
     </div>
 </div>
