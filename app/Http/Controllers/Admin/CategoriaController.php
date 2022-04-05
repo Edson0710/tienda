@@ -100,6 +100,7 @@ class CategoriaController extends Controller
      */
     public function update(Request $request, $id)
     {
+        // dd($request->all());
         $validator = Validator::make($request->all(),[
             'nombre' => 'required|string|unique:categorias,nombre,'.$id,
         ],[
@@ -111,17 +112,18 @@ class CategoriaController extends Controller
         ]);
 
         if($validator->fails()){
-            return redirect()->route('admin.categoria.listado')->withErrors($validator)->withInput();
+
+            return redirect()->route('categoria.listado')->withErrors($validator)->withInput();
         }
 
         try{
             $categoria = Categoria::find($id);
             $categoria->nombre = $request->nombre;
             $categoria->save();
-            return redirect()->route('admin.categoria.listado')->with('success','Categoria actualizada correctamente');
+            return redirect()->route('categoria.listado')->with('success','Categoria actualizada correctamente');
         }
         catch(\Exception $e){
-            return redirect()->route('admin.categoria.listado')->withErrors('Error al actualizar la categoria');
+            return redirect()->route('categoria.listado')->withErrors('Error al actualizar la categoria');
         }
     }
 
@@ -134,7 +136,7 @@ class CategoriaController extends Controller
     public function destroy($id)
     {
         Categoria::destroy($id);
-        return redirect()->route('admin.categoria.index')->with('success','Categoria eliminada correctamente');
+        return redirect()->route('categoria.index')->with('success','Categoria eliminada correctamente');
     }
 
     public function listado(){

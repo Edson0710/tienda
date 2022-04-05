@@ -9,7 +9,7 @@
             </div>
             <div class="modal-body">
                 <p>Llena los siguientes campos:</p>
-                <form id="form-categoria">
+                <form id="form-categoria" method="POST">
                     @method('PUT')
                     @csrf
                     <div class="form-group">
@@ -19,8 +19,8 @@
 
             </div>
             <div class="modal-footer">
-                <button  id="modalclick" data-action="{{route('categorias.store')}}" data-form="#form-categoria" data-method="POST"
-                data-container="#listado" type="button" class="btn btn-primary store" data-modal="#modal-crate">Guardar</button>
+                <button  id="modalclick" data-action="{{route('categorias.update', $categoria->id)}}" data-form="#form-categoria" data-method="POST"
+                data-container="#listado" type="button" class="btn btn-primary store">Guardar</button>
             </form>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
             </div>
