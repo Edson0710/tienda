@@ -37,3 +37,4 @@
 @push('js')
 <script src="{{asset('js/datatable.js')}}"></script>
 @endpush
+<script src="{{asset('js/datatable.js')}}"></script>

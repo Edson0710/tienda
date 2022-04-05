@@ -39,6 +39,7 @@ class CategoriaController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request->all());
         $validator = Validator::make($request->all(),[
             'nombre' => 'required|string|unique:categorias,nombre',
         ],[
@@ -50,17 +51,17 @@ class CategoriaController extends Controller
         ]);
 
         if($validator->fails()){
-            return redirect()->route('admin.categoria.listado')->withErrors($validator)->withInput();
+            return redirect()->route('categoria.listado')->withErrors($validator)->withInput();
         }
 
         try{
             $categoria = new Categoria();
             $categoria->nombre = $request->nombre;
             $categoria->save();
-            return redirect()->route('admin.categoria.listado')->with('success','Categoria creada correctamente');
+            return redirect()->route('categoria.listado')->with('success','Categoria creada correctamente');
         }
         catch(\Exception $e){
-            return redirect()->route('admin.categoria.listado')->withErrors('Error al crear la categoria');
+            return redirect()->route('categoria.listado')->withErrors('Error al crear la categoria');
         }
     }
 

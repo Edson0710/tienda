@@ -18,7 +18,7 @@
 
             </div>
             <div class="modal-footer">
-                <button data-action="{{route('categorias.store')}}" data-form="#form-categoria" data-method="POST"
+                <button  id="modalclick" data-action="{{route('categorias.store')}}" data-form="#form-categoria" data-method="POST"
                 data-container="#listado" type="button" class="btn btn-primary store" data-modal="#modal-crate">Guardar</button>
             </form>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
@@ -31,9 +31,9 @@
 <script>
     $('document').ready(function(){
         $('#modal-create').modal('toggle');
-        // $("#modalclick").click(function () {
-        //     $("#modal-add").modal("hide");
-        // });
+        $("#modalclick").click(function () {
+            $("#modal-create").modal("hide");
+        });
     });
 </script>
 

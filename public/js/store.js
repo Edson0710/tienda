@@ -13,11 +13,33 @@ $(document).ready(function() {
             data:$(form).serialize(),
             success: function(response){
                 $(apuntador).empty();
-                $(apuntador).load(response);
+                $(apuntador).html(response);
+                // initComponents();
             },
             error: function(response){
-                console.log(response);
+                console.log('error');
             }
         });
     });
+
+
 });
+
+// function initComponents(){
+//     $('#table').DataTable({
+//         bDestroy: true,
+//         dom: 'Bfrtip',
+//         language: {
+//             search: "Buscar:",
+//             oPaginate: {
+//                 sFirst: "Primero",
+//                 sLast: "Último",
+//                 sNext: "Siguiente",
+//                 sPrevious: "Anterior"
+//             },
+//             sInfo: "Mostrando _START_ a _END_ de _TOTAL_ registros",
+//         },
+//         responsive: true,
+//     });
+
+// }

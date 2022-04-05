@@ -9,4 +9,5 @@ $(document).ready(function() {
         rel.empty();
         rel.load(this.href);
     });
+
 });

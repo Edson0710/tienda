@@ -24,3 +24,4 @@
 <script src="{{asset('js/create.js')}}"></script>
 {{-- <script src="https://code.jquery.com/jquery-3.5.1.js" crossorigin="anonymous"></script> --}}
 @stop
+@stack('scripts')

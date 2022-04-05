@@ -17,3 +17,6 @@ Route::get('', [HomeController::class, 'index'])->name('admin.index');
 // });
 
 Route::resource('categorias', CategoriaController::class);
+Route::get('listado', [CategoriaController::class, 'listado'])->name('categoria.listado');
+
+

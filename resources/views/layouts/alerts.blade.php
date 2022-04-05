@@ -1,4 +1,3 @@
-@push('scripts')
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 @if($errors->any())
 @foreach ($errors->all() as $error)
@@ -29,4 +28,3 @@
 </script>
 {{Session::forget('success')}}
 @endif
-@endpush
