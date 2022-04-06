@@ -4,6 +4,7 @@
         <thead>
           <tr>
             <th scope="col">Nombre</th>
+            <th scope="col">Descripción</th>
             <th scope="col">Editar</th>
             <th scope="col">Eliminar</th>
           </tr>
@@ -12,6 +13,7 @@
         @foreach ($productos as $producto)
           <tr>
             <td>{{$producto->nombre}}</td>
+            <td>{{$producto->descripcion}}</td>
             <td class="text-center">
                 <a href="{{route('productos.edit', $producto)}}" data-to="modal" class="btn btn-warning edit">
                     <i class="fas fa-edit"></i>

@@ -50,6 +50,7 @@ class ProductoController extends Controller
     {
         $validator = Validator::make($request->all(),[
             'nombre' => 'required|string',
+            'descripcion' => 'required|string',
         ],[
             'required' => 'El campo :attribute es obligatorio',
             'string' => 'El campo :attribute debe ser un texto',
@@ -64,6 +65,7 @@ class ProductoController extends Controller
         try{
             $producto = new Producto();
             $producto->nombre = $request->nombre;
+            $producto->descripcion = $request->descripcion;
             $producto->save();
             return redirect()->route('producto.listado')->with('success','Producto creado correctamente');
         }
