@@ -91,7 +91,10 @@ class ProductoController extends Controller
      */
     public function edit($id)
     {
-        //
+        $producto = Producto::find($id);
+        return view('admin.producto.edit',[
+            'producto' => $producto
+        ]);
     }
 
     /**
@@ -103,7 +106,29 @@ class ProductoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validator = Validator::make($request->all(),[
+            'nombre' => 'required|string',
+        ],[
+            'required' => 'El campo :attribute es obligatorio',
+            'string' => 'El campo :attribute debe ser un texto',
+        ],[
+            'nombre' => 'Nombre'
+        ]);
+
+        if($validator->fails()){
+
+            return redirect()->route('producto.listado')->withErrors($validator)->withInput();
+        }
+
+        try{
+            $producto = Producto::find($id);
+            $producto->nombre = $request->nombre;
+            $producto->save();
+            return redirect()->route('producto.listado')->with('success','Producto actualizado correctamente');
+        }
+        catch(\Exception $e){
+            return redirect()->route('producto.listado')->withErrors('Error al actualizar el producto');
+        }
     }
 
     /**
@@ -114,6 +139,12 @@ class ProductoController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try{
+            Producto::destroy($id);
+            return redirect()->route('producto.listado')->with('success','Producto eliminado correctamente');
+        }
+        catch(\Exception $e){
+            return redirect()->route('producto.listado')->withErrors('Error al eliminar el producto');
+        }
     }
 }

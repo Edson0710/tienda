@@ -13,18 +13,18 @@
           <tr>
             <td>{{$producto->nombre}}</td>
             <td class="text-center">
-                {{-- <a href="{{route('categorias.edit', $categoria)}}" data-to="modal" class="btn btn-warning edit">
+                <a href="{{route('productos.edit', $producto)}}" data-to="modal" class="btn btn-warning edit">
                     <i class="fas fa-edit"></i>
-                </a> --}}
+                </a>
             </td>
             <td class="text-center">
-                {{-- <form action="{{route('categorias.destroy', $categoria->id)}}" data-method="POST" class="form-destroy" data-to="#listado">
+                <form action="{{route('productos.destroy', $producto->id)}}" data-method="POST" class="form-destroy" data-to="#listado">
                     @csrf
                     @method('DELETE')
                     <button type="button" class="btn btn-danger eliminar">
                         <i class="fas fa-trash-alt"></i>
                     </button>
-                </form> --}}
+                </form>
             </td>
           </tr>
         @endforeach
