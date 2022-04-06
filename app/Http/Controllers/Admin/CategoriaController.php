@@ -135,8 +135,13 @@ class CategoriaController extends Controller
      */
     public function destroy($id)
     {
-        Categoria::destroy($id);
-        return redirect()->route('categoria.index')->with('success','Categoria eliminada correctamente');
+        try{
+            Categoria::destroy($id);
+            return redirect()->route('categoria.listado')->with('success','Categoria eliminada correctamente');
+        }
+        catch(\Exception $e){
+            return redirect()->route('categoria.listado')->withErrors('Error al eliminar la categoria');
+        }
     }
 
     public function listado(){

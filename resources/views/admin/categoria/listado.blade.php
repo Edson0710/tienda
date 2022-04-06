@@ -18,10 +18,10 @@
                 </a>
             </td>
             <td class="text-center">
-                <form action="{{route('categorias.destroy', $categoria->id)}}" method="POST">
+                <form action="{{route('categorias.destroy', $categoria->id)}}" data-method="POST" class="form-destroy" data-to="#listado">
                     @csrf
                     @method('DELETE')
-                    <button type="submit" class="btn btn-danger">
+                    <button type="button" class="btn btn-danger eliminar">
                         <i class="fas fa-trash-alt"></i>
                     </button>
                 </form>
@@ -37,6 +37,9 @@
 @push('js')
 <script src="{{asset('js/datatable.js')}}"></script>
 <script src="{{asset('js/edit.js')}}"></script>
+<script src="{{asset('js/delete.js')}}"></script>
 @endpush
 <script src="{{asset('js/datatable.js')}}"></script>
 <script src="{{asset('js/edit.js')}}"></script>
+<script src="{{asset('js/delete.js')}}"></script>
+
