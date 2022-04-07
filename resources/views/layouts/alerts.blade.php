@@ -1,9 +1,12 @@
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 @if($errors->any())
+<script>
+    var msj = "";
+</script>
 @foreach ($errors->all() as $error)
     @php $mensaje = $error; @endphp
     <script>
-        var msj = '{{$mensaje}}'+ "\n" + msj;
+        msj = '{{$mensaje}}'+ "\n" + msj;
     </script>
 @endforeach
 <script>

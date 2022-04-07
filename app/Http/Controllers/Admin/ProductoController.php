@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Categoria;
 use App\Models\Producto;
+use App\Models\Imagen;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -55,9 +56,13 @@ class ProductoController extends Controller
         $validator = Validator::make($request->all(),[
             'nombre' => 'required|string',
             'descripcion' => 'required|string',
+            'imagenes.*' => 'image|mimes:jpeg,png,jpg|max:2048',
         ],[
             'required' => 'El campo :attribute es obligatorio',
             'string' => 'El campo :attribute debe ser un texto',
+            'image' => 'El campo :attribute debe ser una imagen',
+            'mimes' => 'El campo :attribute debe ser una imagen con formato jpeg,png,jpg',
+            'max' => 'El campo :attribute debe ser una imagen con un tamaño menor a 2048MB',
         ],[
             'nombre' => 'Nombre'
         ]);
@@ -67,6 +72,16 @@ class ProductoController extends Controller
         }
 
         try{
+
+            $urlimagenes = [];
+            if($request->hasFile('imagenes')){
+                foreach($request->file('imagenes') as $imagen){
+                    $nombre = time().'_'.$imagen->getClientOriginalName();
+                    $imagen->move(public_path('images/productos'), $nombre);
+                    $urlimagenes[] = $nombre;
+                }
+            }
+
             $producto = new Producto();
             $producto->nombre = $request->nombre;
             $producto->descripcion = $request->descripcion;
@@ -74,10 +89,19 @@ class ProductoController extends Controller
             if($request->categorias){
                 $producto->categorias()->sync($request->categorias);
             }
+            if($urlimagenes){
+                foreach($urlimagenes as $urlimagen){
+                    $imagen = new Imagen();
+                    $imagen->url = $urlimagen;
+                    $imagen->producto_id = $producto->id;
+                    $imagen->save();
+                }
+            }
             return redirect()->route('producto.listado')->with('success','Producto creado correctamente');
         }
         catch(\Exception $e){
             return redirect()->route('producto.listado')->withErrors('Error al crear el producto');
+            // return redirect()->route('producto.listado')->withErrors($e->getMessage());
         }
     }
 

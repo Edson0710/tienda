@@ -10,7 +10,11 @@ $(document).ready(function() {
         $.ajax({
             type: method,
             url: action,
-            data:$(form).serialize(),
+            // data:$(form).serialize(),
+            data: new FormData($(form)[0]),
+            contentType: false,
+            processData: false,
+            cache: false,
             success: function(response){
                 $(apuntador).empty();
                 $(apuntador).html(response);

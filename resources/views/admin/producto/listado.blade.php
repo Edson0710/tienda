@@ -6,6 +6,7 @@
             <th scope="col">Nombre</th>
             <th scope="col">Descripción</th>
             <th scope="col">Categorías</th>
+            <th scope="col">Imágenes</th>
             <th scope="col">Editar</th>
             <th scope="col">Eliminar</th>
           </tr>
@@ -20,6 +21,10 @@
                     <span class="badge badge-primary">{{$categoria->nombre}}</span><br>
                 @endforeach
             </td>
+            <td class="text-center">
+                @foreach ($producto->imagenes as $imagen)
+                    <img src="{{asset('images/productos/'.$imagen->url)}}" alt="{{$imagen->nombre}}" width="100px" height="100px">
+                @endforeach
             <td class="text-center">
                 <a href="{{route('productos.edit', $producto)}}" data-to="modal" class="btn btn-warning edit">
                     <i class="fas fa-edit"></i>

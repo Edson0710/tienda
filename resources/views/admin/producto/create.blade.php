@@ -10,7 +10,7 @@
             </div>
             <div class="modal-body">
                 <p>Llena los siguientes campos:</p>
-                <form id="form-producto">
+                <form id="form-producto" enctype="multipart/form-data">
                     @csrf
                     <div class="form-group">
                         <label for="nombre">Nombre</label>
@@ -31,13 +31,22 @@
                             @endforeach
                         </select>
                     </div>
-
+                    <div class="form-group">
+                        <label for="imagenes">Añadir imágenes</label>
+                        <input type="file" name="imagenes[]" id="imagenes[]" class="form-control-file" multiple accept="image/*">
+                        <div class="description">
+                            <br>
+                            <span>Puedes añadir más de una imagen al mismo tiempo.</span><br>
+                            <span>Puedes añadir imágenes en formato <strong>.jpg</strong>, <strong>.jpeg</strong> o <strong>.png</strong>.</span><br>
+                            <span>Puedes añadir imágenes de tamaño <strong>máximo de 2048MB</strong>.</span>
+                        </div>
+                    </div>
+                </form>
             </div>
             <div class="modal-footer">
                 <button id="modalclick" data-action="{{route('productos.store')}}" data-form="#form-producto"
                     data-method="POST" data-container="#listado" type="button" class="btn btn-primary store"
                     data-modal="#modal-crate">Guardar</button>
-                </form>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
             </div>
         </div>
