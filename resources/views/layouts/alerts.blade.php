@@ -19,7 +19,7 @@
 @if (Session::has('success'))
 <script>
         Swal.fire({
-            title: 'Exito!',
+            title: 'Éxito!',
             text: '{{Session::get('success')}}',
             icon: 'success',
             showConfirmButton: false,

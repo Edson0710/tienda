@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Categoria;
 use App\Models\Producto;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -37,7 +38,10 @@ class ProductoController extends Controller
      */
     public function create()
     {
-        return view('admin.producto.create');
+        $categorias = Categoria::all();
+        return view('admin.producto.create', [
+            'categorias' => $categorias
+        ]);
     }
 
     /**
@@ -67,6 +71,9 @@ class ProductoController extends Controller
             $producto->nombre = $request->nombre;
             $producto->descripcion = $request->descripcion;
             $producto->save();
+            if($request->categorias){
+                $producto->categorias()->sync($request->categorias);
+            }
             return redirect()->route('producto.listado')->with('success','Producto creado correctamente');
         }
         catch(\Exception $e){

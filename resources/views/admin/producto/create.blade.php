@@ -1,3 +1,4 @@
+
 <div id="modal-create" class="modal">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -13,32 +14,45 @@
                     @csrf
                     <div class="form-group">
                         <label for="nombre">Nombre</label>
-                        <input type="text" name="nombre" id="nombre" class="form-control" placeholder="Nombre del producto" required>
+                        <input type="text" name="nombre" id="nombre" class="form-control"
+                            placeholder="Nombre del producto" required>
                     </div>
                     <div class="form-group">
                         <label for="descripcion">Descripción</label>
-                        <textarea name="descripcion" id="descripcion" class="form-control" placeholder="Descripción del producto" required></textarea>
+                        <textarea name="descripcion" id="descripcion" class="form-control"
+                            placeholder="Descripción del producto" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="categorias">Categorías</label><br>
+                        <select name="categorias[]" id="categorias" select class="selectpicker" multiple data-live-search="true">
+                            <option disabled>Selecciona las categorías</option>
+                            @foreach($categorias as $categoria)
+                            <option value="{{$categoria->id}}">{{$categoria->nombre}}</option>
+                            @endforeach
+                        </select>
                     </div>
 
             </div>
             <div class="modal-footer">
-                <button  id="modalclick" data-action="{{route('productos.store')}}" data-form="#form-producto" data-method="POST"
-                data-container="#listado" type="button" class="btn btn-primary store" data-modal="#modal-crate">Guardar</button>
-            </form>
+                <button id="modalclick" data-action="{{route('productos.store')}}" data-form="#form-producto"
+                    data-method="POST" data-container="#listado" type="button" class="btn btn-primary store"
+                    data-modal="#modal-crate">Guardar</button>
+                </form>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
             </div>
         </div>
     </div>
 </div>
 
+
 <script src="{{asset('js/store.js')}}"></script>
 <script>
-    $('document').ready(function(){
+    $('document').ready(function () {
+        $('select').selectpicker();
         $('#modal-create').modal('toggle');
         $("#modalclick").click(function () {
             $("#modal-create").modal("hide");
         });
     });
+
 </script>
-
-
