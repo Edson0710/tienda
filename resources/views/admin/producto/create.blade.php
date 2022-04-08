@@ -63,5 +63,4 @@
             $("#modal-create").modal("hide");
         });
     });
-
 </script>

@@ -22,9 +22,24 @@
                 @endforeach
             </td>
             <td class="text-center">
-                @foreach ($producto->imagenes as $imagen)
-                    <img src="{{asset('images/productos/'.$imagen->url)}}" alt="{{$imagen->nombre}}" width="100px" height="100px">
-                @endforeach
+                <div id="carousel-{{$producto->id}}" class="carousel slide" data-ride="carousel">
+                    <div class="carousel-inner">
+                        @foreach ($producto->imagenes as $imagen)
+                            <div class="carousel-item {{$loop->first ? 'active' : ''}}">
+                                <img class="ver-imagen" src="{{asset('images/productos/'.$imagen->url)}}" alt="{{$imagen->nombre}}" width="100px" height="100px">
+                            </div>
+                        @endforeach
+                    </div>
+                    <a class="carousel-control-prev" href="#carousel-{{$producto->id}}" role="button" data-slide="prev">
+                      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                      <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="carousel-control-next" href="#carousel-{{$producto->id}}" role="button" data-slide="next">
+                      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                      <span class="sr-only">Next</span>
+                    </a>
+                  </div>
+            </td>
             <td class="text-center">
                 <a href="{{route('productos.edit', $producto)}}" data-to="modal" class="btn btn-warning edit">
                     <i class="fas fa-edit"></i>
@@ -47,12 +62,20 @@
 
 <div id="modal"></div>
 
+<div id="modal-imagen" class="modal">
+    <span class="close">&times;</span>
+    <img class="modal-content" id="img01">
+    <div id="caption"></div>
+</div>
+
 @push('js')
 <script src="{{asset('js/datatable.js')}}"></script>
 <script src="{{asset('js/edit.js')}}"></script>
 <script src="{{asset('js/delete.js')}}"></script>
+<script src="{{asset('js/ver-imagen.js')}}"></script>
 @endpush
 <script src="{{asset('js/datatable.js')}}"></script>
 <script src="{{asset('js/edit.js')}}"></script>
 <script src="{{asset('js/delete.js')}}"></script>
+<script src="{{asset('js/ver-imagen.js')}}"></script>
 
