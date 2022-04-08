@@ -7,6 +7,7 @@ use App\Models\Categoria;
 use App\Models\Producto;
 use App\Models\Imagen;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Validator;
 
 class ProductoController extends Controller
@@ -125,8 +126,10 @@ class ProductoController extends Controller
     public function edit($id)
     {
         $producto = Producto::find($id);
+        $categorias = Categoria::all();
         return view('admin.producto.edit',[
-            'producto' => $producto
+            'producto' => $producto,
+            'categorias' => $categorias
         ]);
     }
 
@@ -157,6 +160,7 @@ class ProductoController extends Controller
             $producto = Producto::find($id);
             $producto->nombre = $request->nombre;
             $producto->save();
+            $producto->categorias()->sync($request->categorias);
             return redirect()->route('producto.listado')->with('success','Producto actualizado correctamente');
         }
         catch(\Exception $e){
@@ -173,6 +177,11 @@ class ProductoController extends Controller
     public function destroy($id)
     {
         try{
+            $imagenes = Imagen::where('producto_id',$id)->get();
+            foreach($imagenes as $imagen){
+                // Eliminar imagen de la carpeta
+                File::delete(public_path('images/productos/'.$imagen->url));
+            }
             Producto::destroy($id);
             return redirect()->route('producto.listado')->with('success','Producto eliminado correctamente');
         }

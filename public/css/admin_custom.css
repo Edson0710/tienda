@@ -1,5 +1,5 @@
 /* The Modal (background) */
-.modal {
+#modal-imagen {
     display: none;
     position: fixed;
     padding-top: 100px;

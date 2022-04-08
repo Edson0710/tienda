@@ -16,6 +16,38 @@
                         <label for="nombre">Nombre</label>
                         <input type="text" name="nombre" id="nombre" class="form-control" placeholder="Nombre del producto" value="{{$producto->nombre}}" required>
                     </div>
+                    <div class="form-group">
+                        <label for="descripcion">Descripción</label>
+                        <textarea name="descripcion" id="descripcion" class="form-control"
+                            placeholder="Descripción del producto" required>{{$producto->descripcion}}</textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="categorias">Categorías</label><br>
+                        <select name="categorias[]" id="categorias" select class="selectpicker" multiple data-live-search="true">
+                            <option disabled>Selecciona las categorías</option>
+                            @foreach($categorias as $categoria)
+                            <option value="{{$categoria->id}}" {{$producto->categorias->contains($categoria) ? 'selected' : ''}}>{{$categoria->nombre}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="delete-imagenes">Eliminar imágenes</label>
+                        <div class="row">
+                            @foreach($producto->imagenes as $imagen)
+                            <div class="col-md-2">
+                                <div class="card">
+                                    <img src="{{asset('images/productos/'.$imagen->url)}}" class="card-img-top" alt="..." width="100px" height="100px">
+                                    <div class="card-body">
+                                        <div class="form-check">
+                                            <input type="checkbox" name="delete-imagenes[]" value="{{$imagen->id}}" class="form-check-input">
+                                            <label class="form-check-label">Eliminar</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            @endforeach
+                        </div>
+                    </div>
 
             </div>
             <div class="modal-footer">
@@ -31,6 +63,7 @@
 <script src="{{asset('js/store.js')}}"></script>
 <script>
     $('document').ready(function(){
+        $('select').selectpicker();
         $('#modal-edit').modal('toggle');
         $("#modalclick").click(function () {
             $("#modal-edit").modal("hide");
