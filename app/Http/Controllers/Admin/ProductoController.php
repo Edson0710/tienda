@@ -143,6 +143,7 @@ class ProductoController extends Controller
     {
         $validator = Validator::make($request->all(),[
             'nombre' => 'required|string',
+            'descripcion' => 'required|string',
         ],[
             'required' => 'El campo :attribute es obligatorio',
             'string' => 'El campo :attribute debe ser un texto',
@@ -158,8 +159,33 @@ class ProductoController extends Controller
         try{
             $producto = Producto::find($id);
             $producto->nombre = $request->nombre;
+            $producto->descripcion = $request->descripcion;
             $producto->save();
             $producto->categorias()->sync($request->categorias);
+            // Eliminar imagenes
+            if($request->delete_imagenes){
+                foreach($request->delete_imagenes as $imagen_eliminar){
+                    $imagen = Imagen::find($imagen_eliminar);
+                    File::delete(public_path('images/productos/'.$producto->id.'/'.$imagen->url));
+                    $imagen->delete();
+                }
+            }
+            $urlimagenes = [];
+            if($request->hasFile('imagenes')){
+                foreach($request->file('imagenes') as $imagen){
+                    $nombre = time().'_'.$imagen->getClientOriginalName();
+                    $imagen->move(public_path('images/productos/'.$producto->id), $nombre);
+                    $urlimagenes[] = $nombre;
+                }
+            }
+            if($urlimagenes){
+                foreach($urlimagenes as $urlimagen){
+                    $imagen = new Imagen();
+                    $imagen->url = $urlimagen;
+                    $imagen->producto_id = $producto->id;
+                    $imagen->save();
+                }
+            }
             return redirect()->route('producto.listado')->with('success','Producto actualizado correctamente');
         }
         catch(\Exception $e){

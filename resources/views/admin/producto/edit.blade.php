@@ -34,18 +34,28 @@
                         <label for="delete-imagenes">Eliminar imágenes</label>
                         <div class="row">
                             @foreach($producto->imagenes as $imagen)
-                            <div class="col-md-2">
+                            <div class="col-xs-2">
                                 <div class="card">
-                                    <img src="{{asset('images/productos/'.$imagen->url)}}" class="card-img-top" alt="..." width="100px" height="100px">
+                                    <img src="{{asset('images/productos/'.$imagen->producto_id.'/'.$imagen->url)}}" class="card-img-top" alt="..." width="100px" height="100px">
                                     <div class="card-body">
                                         <div class="form-check">
-                                            <input type="checkbox" name="delete-imagenes[]" value="{{$imagen->id}}" class="form-check-input">
+                                            <input type="checkbox" name="delete_imagenes[]" value="{{$imagen->id}}" class="form-check-input">
                                             <label class="form-check-label">Eliminar</label>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             @endforeach
+                        </div>
+                    </div>  
+                    <div class="form-group">
+                        <label for="imagenes">Añadir imágenes</label>
+                        <input type="file" name="imagenes[]" id="imagenes[]" class="form-control-file" multiple accept="image/*">
+                        <div class="description">
+                            <br>
+                            <span>Puedes añadir más de una imagen al mismo tiempo.</span><br>
+                            <span>Puedes añadir imágenes en formato <strong>.jpg</strong>, <strong>.jpeg</strong> o <strong>.png</strong>.</span><br>
+                            <span>Puedes añadir imágenes de tamaño <strong>máximo de 2048MB</strong>.</span>
                         </div>
                     </div>
 
