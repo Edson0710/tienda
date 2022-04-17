@@ -73,22 +73,21 @@ class ProductoController extends Controller
         }
 
         try{
-
-            $urlimagenes = [];
-            if($request->hasFile('imagenes')){
-                foreach($request->file('imagenes') as $imagen){
-                    $nombre = time().'_'.$imagen->getClientOriginalName();
-                    $imagen->move(public_path('images/productos'), $nombre);
-                    $urlimagenes[] = $nombre;
-                }
-            }
-
             $producto = new Producto();
             $producto->nombre = $request->nombre;
             $producto->descripcion = $request->descripcion;
             $producto->save();
             if($request->categorias){
                 $producto->categorias()->sync($request->categorias);
+            }
+            
+            $urlimagenes = [];
+            if($request->hasFile('imagenes')){
+                foreach($request->file('imagenes') as $imagen){
+                    $nombre = time().'_'.$imagen->getClientOriginalName();
+                    $imagen->move(public_path('images/productos/'.$producto->id), $nombre);
+                    $urlimagenes[] = $nombre;
+                }
             }
             if($urlimagenes){
                 foreach($urlimagenes as $urlimagen){
@@ -180,8 +179,10 @@ class ProductoController extends Controller
             $imagenes = Imagen::where('producto_id',$id)->get();
             foreach($imagenes as $imagen){
                 // Eliminar imagen de la carpeta
-                File::delete(public_path('images/productos/'.$imagen->url));
+                File::delete(public_path('images/productos/'.$imagen->producto_id.'/'.$imagen->url));
             }
+            // Borrar carpeta
+            File::deleteDirectory(public_path('images/productos/'.$id));
             Producto::destroy($id);
             return redirect()->route('producto.listado')->with('success','Producto eliminado correctamente');
         }

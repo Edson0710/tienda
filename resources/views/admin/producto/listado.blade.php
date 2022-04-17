@@ -26,7 +26,7 @@
                     <div class="carousel-inner">
                         @foreach ($producto->imagenes as $imagen)
                             <div class="carousel-item {{$loop->first ? 'active' : ''}}">
-                                <img class="ver-imagen" src="{{asset('images/productos/'.$imagen->url)}}" alt="{{$imagen->nombre}}" width="100px" height="100px">
+                                <img class="ver-imagen" src="{{asset('images/productos/'.$imagen->producto_id.'/'.$imagen->url)}}" alt="{{$imagen->nombre}}" width="100px" height="100px">
                             </div>
                         @endforeach
                     </div>
