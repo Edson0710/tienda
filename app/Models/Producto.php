@@ -16,4 +16,8 @@ class Producto extends Model
     public function imagenes(){
         return $this->hasMany(Imagen::class);
     }
+
+    public function pedidos(){
+        return $this->belongsToMany(Pedido::class, 'pedido_productos');
+    }
 }

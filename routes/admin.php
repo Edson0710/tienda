@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\HomeController;
 use App\Http\Controllers\Admin\CategoriaController;
 use App\Http\Controllers\Admin\ProductoController;
+use App\Http\Controllers\Admin\PedidoController;
 
 Route::get('', [HomeController::class, 'index'])->name('admin.index');
 
@@ -17,5 +18,11 @@ Route::group(['prefix' => 'categoria'], function () {
 Route::resource('productos', ProductoController::class);
 Route::group(['prefix' => 'producto'], function () {
     Route::get('listado', [ProductoController::class, 'listado'])->name('producto.listado');
+});
+
+//Pedidos
+Route::resource('pedidos', PedidoController::class);
+Route::group(['prefix' => 'pedido'], function () {
+    Route::get('listado', [PedidoController::class, 'listado'])->name('pedido.listado');
 });
 

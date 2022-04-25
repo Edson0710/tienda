@@ -249,7 +249,7 @@ return [
         ['header' => 'OPCIONES ADMINISTRADOR'],
         [
             'text' => 'Pedidos',
-            'url'  => 'admin/settings',
+            'url'  => 'admin/pedidos',
             'icon' => 'fas fa-fw fa-receipt',
         ],
         [
