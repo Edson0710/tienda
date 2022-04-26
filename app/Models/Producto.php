@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 
 class Producto extends Model
 {
@@ -19,5 +20,21 @@ class Producto extends Model
 
     public function pedidos(){
         return $this->belongsToMany(Pedido::class, 'pedido_productos');
+    }
+
+    protected function setMenudeoAttribute($value){
+        $this->attributes['menudeo'] = floatval(preg_replace('/[^-0-9\.]/', '', $value));
+    }
+
+    protected function getMenudeoAttribute($value){
+        return number_format($value, 2);
+    }
+
+    protected function setMayoreoAttribute($value){
+        $this->attributes['mayoreo'] = floatval(preg_replace('/[^-0-9\.]/', '', $value));
+    }
+
+    protected function getMayoreoAttribute($value){
+        return number_format($value, 2);
     }
 }

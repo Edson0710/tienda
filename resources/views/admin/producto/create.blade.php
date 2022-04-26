@@ -23,6 +23,18 @@
                             placeholder="Descripción del producto" required></textarea>
                     </div>
                     <div class="form-group">
+                        <label class="control-label">Precio Menudeo:</label>
+                        <input id="menudeo" class="form-control" name="menudeo" type="text" data-type="currency" placeholder="Precio de menudeo del producto" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Precio Mayoreo:</label>
+                        <input id="mayoreo" class="form-control" name="mayoreo" type="text" data-type="currency" placeholder="Precio de mayoreo del producto" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Cantidad Mínima Mayoreo:</label>
+                        <input id="cantidad_mayoreo" class="form-control" name="cantidad_mayoreo" type="number" placeholder="Cantidad mínima para precio de mayoreo" required>
+                    </div>
+                    <div class="form-group">
                         <label for="categorias">Categorías</label><br>
                         <select name="categorias[]" id="categorias" select class="selectpicker" multiple data-live-search="true">
                             <option disabled>Selecciona las categorías</option>
@@ -55,6 +67,7 @@
 
 
 <script src="{{asset('js/store.js')}}"></script>
+<script src="{{asset('js/currencyFormat.js')}}"></script>
 <script>
     $('document').ready(function () {
         $('select').selectpicker();

@@ -54,9 +54,13 @@ class ProductoController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request->all());
         $validator = Validator::make($request->all(),[
             'nombre' => 'required|string',
             'descripcion' => 'required|string',
+            'menudeo' => 'required',
+            'mayoreo' => 'required',
+            'cantidad_mayoreo' => 'required',
             'imagenes.*' => 'image|mimes:jpeg,png,jpg|max:2048',
         ],[
             'required' => 'El campo :attribute es obligatorio',
@@ -76,11 +80,14 @@ class ProductoController extends Controller
             $producto = new Producto();
             $producto->nombre = $request->nombre;
             $producto->descripcion = $request->descripcion;
+            $producto->menudeo = $request->menudeo;
+            $producto->mayoreo = $request->mayoreo;
+            $producto->cantidad_mayoreo = $request->cantidad_mayoreo;
             $producto->save();
             if($request->categorias){
                 $producto->categorias()->sync($request->categorias);
             }
-            
+
             $urlimagenes = [];
             if($request->hasFile('imagenes')){
                 foreach($request->file('imagenes') as $imagen){
@@ -100,8 +107,8 @@ class ProductoController extends Controller
             return redirect()->route('producto.listado')->with('success','Producto creado correctamente');
         }
         catch(\Exception $e){
-            return redirect()->route('producto.listado')->withErrors('Error al crear el producto');
-            // return redirect()->route('producto.listado')->withErrors($e->getMessage());
+            // return redirect()->route('producto.listado')->withErrors('Error al crear el producto');
+            return redirect()->route('producto.listado')->withErrors($e->getMessage());
         }
     }
 
@@ -144,6 +151,9 @@ class ProductoController extends Controller
         $validator = Validator::make($request->all(),[
             'nombre' => 'required|string',
             'descripcion' => 'required|string',
+            'menudeo' => 'required',
+            'mayoreo' => 'required',
+            'cantidad_mayoreo' => 'required',
         ],[
             'required' => 'El campo :attribute es obligatorio',
             'string' => 'El campo :attribute debe ser un texto',
@@ -160,6 +170,9 @@ class ProductoController extends Controller
             $producto = Producto::find($id);
             $producto->nombre = $request->nombre;
             $producto->descripcion = $request->descripcion;
+            $producto->menudeo = $request->menudeo;
+            $producto->mayoreo = $request->mayoreo;
+            $producto->cantidad_mayoreo = $request->cantidad_mayoreo;
             $producto->save();
             $producto->categorias()->sync($request->categorias);
             // Eliminar imagenes

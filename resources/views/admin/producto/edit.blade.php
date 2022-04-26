@@ -22,6 +22,18 @@
                             placeholder="Descripción del producto" required>{{$producto->descripcion}}</textarea>
                     </div>
                     <div class="form-group">
+                        <label class="control-label">Precio Menudeo:</label>
+                        <input id="menudeo" class="form-control" name="menudeo" type="text" data-type="currency" value="${{$producto->menudeo}}" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Precio Mayoreo:</label>
+                        <input id="mayoreo" class="form-control" name="mayoreo" type="text" data-type="currency" value="${{$producto->mayoreo}}" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Cantidad Mínima Mayoreo:</label>
+                        <input id="cantidad_mayoreo" class="form-control" name="cantidad_mayoreo" type="number" value="{{$producto->cantidad_mayoreo}}" required>
+                    </div>
+                    <div class="form-group">
                         <label for="categorias">Categorías</label><br>
                         <select name="categorias[]" id="categorias" select class="selectpicker" multiple data-live-search="true">
                             <option disabled>Selecciona las categorías</option>
@@ -47,7 +59,7 @@
                             </div>
                             @endforeach
                         </div>
-                    </div>  
+                    </div>
                     <div class="form-group">
                         <label for="imagenes">Añadir imágenes</label>
                         <input type="file" name="imagenes[]" id="imagenes[]" class="form-control-file" multiple accept="image/*">
@@ -71,6 +83,7 @@
 </div>
 
 <script src="{{asset('js/store.js')}}"></script>
+<script src="{{asset('js/currencyFormat.js')}}"></script>
 <script>
     $('document').ready(function(){
         $('select').selectpicker();

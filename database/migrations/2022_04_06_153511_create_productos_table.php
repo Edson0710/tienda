@@ -17,6 +17,9 @@ class CreateProductosTable extends Migration
             $table->id();
             $table->string('nombre');
             $table->text('descripcion');
+            $table->decimal('menudeo', 8, 2)->nullable();
+            $table->decimal('mayoreo', 8, 2)->nullable();
+            $table->integer('cantidad_mayoreo')->default(0);
             $table->timestamps();
         });
     }
