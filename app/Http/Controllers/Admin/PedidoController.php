@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Pedido;
 use App\Models\Producto;
 use Illuminate\Http\Request;
 
@@ -15,7 +16,10 @@ class PedidoController extends Controller
      */
     public function index()
     {
-        return view('admin.pedido.index');
+        $pedidos = Pedido::all();
+        return view('admin.pedido.index',[
+            'pedidos' => $pedidos
+        ]);
     }
 
     public function carrito()

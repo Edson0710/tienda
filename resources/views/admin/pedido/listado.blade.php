@@ -14,40 +14,32 @@
           </tr>
         </thead>
         <tbody>
-        {{-- @foreach ($productos as $producto)
+        @foreach ($pedidos as $pedido)
           <tr>
-            <td>{{$producto->nombre}}</td>
-            <td>{{$producto->descripcion}}</td>
-            <td class="text-center">
-                @foreach ($producto->categorias as $categoria)
-                    <span class="badge badge-primary">{{$categoria->nombre}}</span><br>
-                @endforeach
+            <td>{{$pedido->codigo}}</td>
+            <td>x</td>
+            <td>
+                <i class="fas fa-user"></i>&nbsp;&nbsp;{{$pedido->nombre}}<br>
+                <i class="fas fa-map-marker-alt"></i>&nbsp;&nbsp;{{$pedido->direccion}}<br>
+                <i class="fas fa-phone"></i>&nbsp;&nbsp;{{$pedido->telefono}}<br>
+                <i class="fas fa-envelope"></i>&nbsp;&nbsp;{{$pedido->email}}
             </td>
             <td class="text-center">
-                <div id="carousel-{{$producto->id}}" class="carousel slide" data-ride="carousel">
-                    <div class="carousel-inner">
-                        @foreach ($producto->imagenes as $imagen)
-                            <div class="carousel-item {{$loop->first ? 'active' : ''}}">
-                                <img class="ver-imagen" src="{{asset('images/productos/'.$imagen->producto_id.'/'.$imagen->url)}}" alt="{{$imagen->nombre}}" width="100px" height="100px">
-                            </div>
-                        @endforeach
-                    </div>
-                    <a class="carousel-control-prev" href="#carousel-{{$producto->id}}" role="button" data-slide="prev">
-                      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                      <span class="sr-only">Previous</span>
-                    </a>
-                    <a class="carousel-control-next" href="#carousel-{{$producto->id}}" role="button" data-slide="next">
-                      <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                      <span class="sr-only">Next</span>
-                    </a>
-                  </div>
+                @if ($pedido->estado->nombre == 'Pendiente')
+                    <span class="badge badge-warning">{{$pedido->estado->nombre}}</span>
+                @elseif ($pedido->estado->nombre == 'Enviado')
+                    <span class="badge badge-info">{{$pedido->estado->nombre}}</span>
+                @elseif ($pedido->estado->nombre == 'Entregado')
+                    <span class="badge badge-success">{{$pedido->estado->nombre}}</span>
+                @elseif ($pedido->estado->nombre == 'Cancelado')
+                    <span class="badge badge-danger">{{$pedido->estado->nombre}}</span>
+                @endif
             </td>
-            <td class="text-center">
-                <a href="{{route('productos.edit', $producto)}}" data-to="modal" class="btn btn-warning edit">
-                    <i class="fas fa-edit"></i>
-                </a>
-            </td>
-            <td class="text-center">
+            <td>x</td>
+            <td>x</td>
+            <td>x</td>
+            <td>x</td>
+            {{-- <td class="text-center">
                 <form action="{{route('productos.destroy', $producto->id)}}" data-method="POST" class="form-destroy" data-to="#listado">
                     @csrf
                     @method('DELETE')
@@ -55,9 +47,9 @@
                         <i class="fas fa-trash-alt"></i>
                     </button>
                 </form>
-            </td>
+            </td> --}}
           </tr>
-        @endforeach --}}
+        @endforeach
         </tbody>
       </table>
 </div>

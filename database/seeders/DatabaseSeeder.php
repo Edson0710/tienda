@@ -21,7 +21,7 @@ class DatabaseSeeder extends Seeder
         // Estados
         $estados = [
             ['nombre' => 'Pendiente'],
-            ['nombre' => 'En proceso'],
+            ['nombre' => 'Enviado'],
             ['nombre' => 'Entregado'],
             ['nombre' => 'Cancelado'],
         ];

@@ -26,6 +26,7 @@ class CreatePedidosTable extends Migration
             $table->date('fecha_envio')->nullable();
             $table->date('fecha_entrega')->nullable();
             $table->timestamps();
+            $table->foreign('estado_id')->references('id')->on('estados');
         });
     }
 
