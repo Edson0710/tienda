@@ -24,5 +24,6 @@ Route::group(['prefix' => 'producto'], function () {
 Route::resource('pedidos', PedidoController::class);
 Route::group(['prefix' => 'pedido'], function () {
     Route::get('listado', [PedidoController::class, 'listado'])->name('pedido.listado');
+    Route::get('carrito', [PedidoController::class, 'carrito'])->name('pedido.carrito');
 });
 

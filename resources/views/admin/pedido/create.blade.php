@@ -13,45 +13,21 @@
                 <form id="form-producto" enctype="multipart/form-data">
                     @csrf
                     <div class="form-group">
-                        <label for="nombre">Agregar productos</label>
-                        {{-- Listar productos y agregar --}}
-                        <select name="productos[]" id="productos" select class="selectpicker" multiple data-live-search="true">
-                            <option disabled>Selecciona los productos</option>
-                            @foreach($productos as $producto)
-                            <option value="{{$producto->id}}">{{$producto->nombre}}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                    {{-- <div class="form-group">
-                        <label for="descripcion">Descripción</label>
-                        <textarea name="descripcion" id="descripcion" class="form-control"
-                            placeholder="Descripción del producto" required></textarea>
+                        <label for="nombre">Seleccionar productos</label>
+                        @include('admin.pedido.productos')
                     </div>
                     <div class="form-group">
-                        <label for="categorias">Categorías</label><br>
-                        <select name="categorias[]" id="categorias" select class="selectpicker" multiple data-live-search="true">
-                            <option disabled>Selecciona las categorías</option>
-                            @foreach($categorias as $categoria)
-                            <option value="{{$categoria->id}}">{{$categoria->nombre}}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="imagenes">Añadir imágenes</label>
-                        <input type="file" name="imagenes[]" id="imagenes[]" class="form-control-file" multiple accept="image/*">
-                        <div class="description">
-                            <br>
-                            <span>Puedes añadir más de una imagen al mismo tiempo.</span><br>
-                            <span>Puedes añadir imágenes en formato <strong>.jpg</strong>, <strong>.jpeg</strong> o <strong>.png</strong>.</span><br>
-                            <span>Puedes añadir imágenes de tamaño <strong>máximo de 2048MB</strong>.</span>
+                        <label for="descripcion">Carrito</label>
+                        <div id="carrito">
+                            {{-- @include('admin.pedido.carrito') --}}
                         </div>
-                    </div> --}}
+                    </div>
                 </form>
             </div>
             <div class="modal-footer">
                 <button id="modalclick" data-action="{{route('productos.store')}}" data-form="#form-producto"
                     data-method="POST" data-container="#listado" type="button" class="btn btn-primary store"
-                    data-modal="#modal-crate">Guardar</button>
+                    data-modal="#modal-crate">Continuar</button>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
             </div>
         </div>

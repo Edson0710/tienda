@@ -18,6 +18,14 @@ class PedidoController extends Controller
         return view('admin.pedido.index');
     }
 
+    public function carrito()
+    {
+        $productos = Producto::all();
+        return view('admin.producto.listado',[
+            'productos' => $productos
+        ]);
+    }
+
     /**
      * Show the form for creating a new resource.
      *
