@@ -7,8 +7,9 @@
             <th scope="col">Contenido</th>
             <th scope="col">Datos de envío</th>
             <th scope="col">Estado de envío</th>
-            <th scope="col">Fecha de compra</th>
-            <th scope="col">Fecha de envío</th>
+            <th scope="col"><i class="fas fa-calendar-alt"></i>&nbsp;&nbsp;Compra</th>
+            <th scope="col"><i class="fas fa-calendar-alt"></i>&nbsp;&nbsp;Envío</th>
+            <th scope="col"><i class="fas fa-calendar-alt"></i>&nbsp;&nbsp;Entrega</th>
             <th scope="col">Editar</th>
             <th scope="col">Cancelar</th>
           </tr>
@@ -17,7 +18,13 @@
         @foreach ($pedidos as $pedido)
           <tr>
             <td>{{$pedido->codigo}}</td>
-            <td>x</td>
+            {{-- Enlistar contenido --}}
+            <td>
+                    {{-- @foreach ($pedido->contenido as $contenido) --}}
+                        {{-- <li>{{$contenido->cantidad}} {{$contenido->producto->nombre}}</li> --}}
+                    {{-- @endforeach --}}
+                <li>Producto 1</li>
+                <li>Producto 2</li>
             <td>
                 <i class="fas fa-user"></i>&nbsp;&nbsp;{{$pedido->nombre}}<br>
                 <i class="fas fa-map-marker-alt"></i>&nbsp;&nbsp;{{$pedido->direccion}}<br>
@@ -35,19 +42,30 @@
                     <span class="badge badge-danger">{{$pedido->estado->nombre}}</span>
                 @endif
             </td>
-            <td>x</td>
-            <td>x</td>
-            <td>x</td>
-            <td>x</td>
-            {{-- <td class="text-center">
-                <form action="{{route('productos.destroy', $producto->id)}}" data-method="POST" class="form-destroy" data-to="#listado">
-                    @csrf
-                    @method('DELETE')
-                    <button type="button" class="btn btn-danger eliminar">
-                        <i class="fas fa-trash-alt"></i>
-                    </button>
-                </form>
-            </td> --}}
+            <td class="text-center">{{$pedido->fecha_compra}}</td>
+            <td class="text-center">
+                @if ($pedido->fecha_emvio!= null)
+                    {{$pedido->fecha_envio}}
+                @else
+                    <span class="badge badge-danger">Sin fecha</span>
+                @endif
+            </td>
+            <td class="text-center">
+                @if ($pedido->fecha_entrega!= null)
+                    {{$pedido->fecha_entrega}}
+                @else
+                    <span class="badge badge-danger">Sin fecha</span>
+                @endif
+            <td class="text-center">
+                <a href="" data-to="modal" class="btn btn-warning edit">
+                    <i class="fas fa-edit"></i>
+                </a>
+            </td>
+            <td class="text-center">
+                <a href="" data-to="modal" class="btn btn-danger cancel">
+                    <i class="fas fa-ban"></i>
+                </a>
+            </td>
           </tr>
         @endforeach
         </tbody>
