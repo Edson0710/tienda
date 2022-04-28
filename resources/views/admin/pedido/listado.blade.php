@@ -20,11 +20,9 @@
             <td>{{$pedido->codigo}}</td>
             {{-- Enlistar contenido --}}
             <td>
-                    {{-- @foreach ($pedido->contenido as $contenido) --}}
-                        {{-- <li>{{$contenido->cantidad}} {{$contenido->producto->nombre}}</li> --}}
-                    {{-- @endforeach --}}
-                <li>Producto 1</li>
-                <li>Producto 2</li>
+                @foreach ($pedido->productos as $producto)
+                    <b>{{$producto->nombre}}</b><br>
+                @endforeach
             <td>
                 <i class="fas fa-user"></i>&nbsp;&nbsp;{{$pedido->nombre}}<br>
                 <i class="fas fa-map-marker-alt"></i>&nbsp;&nbsp;{{$pedido->direccion}}<br>
