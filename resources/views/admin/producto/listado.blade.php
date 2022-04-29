@@ -7,7 +7,6 @@
             <th scope="col">Descripción</th>
             <th scope="col">Menudeo</th>
             <th scope="col">Mayoreo</th>
-            <th scope="col">Mínimo</th>
             <th scope="col">Categorías</th>
             <th scope="col">Imágenes</th>
             <th scope="col">Editar</th>
@@ -20,8 +19,7 @@
             <td>{{$producto->nombre}}</td>
             <td>{{$producto->descripcion}}</td>
             <td>${{$producto->menudeo}}</td>
-            <td>${{$producto->mayoreo}}</td>
-            <td>{{$producto->cantidad_mayoreo}}</td>
+            <td>${{$producto->mayoreo}} <br>(mínimo {{$producto->cantidad_mayoreo}})</td>
             <td class="text-center">
                 @foreach ($producto->categorias as $categoria)
                     <span class="badge badge-primary">{{$categoria->nombre}}</span><br>

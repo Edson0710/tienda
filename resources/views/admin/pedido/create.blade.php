@@ -1,4 +1,3 @@
-
 <div id="modal-create" class="modal">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -10,24 +9,32 @@
             </div>
             <div class="modal-body">
                 <p>Llena los siguientes campos:</p>
-                <form id="form-producto" enctype="multipart/form-data">
+                <form id="form-pedido" enctype="multipart/form-data">
                     @csrf
                     <div class="form-group">
                         <label for="nombre">Seleccionar productos</label>
                         @include('admin.pedido.productos')
                     </div>
-                    <div class="form-group">
+                    <div class="form-group table-responsive">
                         <label for="descripcion">Carrito</label>
-                        <div id="carrito">
-                            {{-- @include('admin.pedido.carrito') --}}
-                        </div>
+                        <table id="carrito" class="table">
+                            <thead>
+                              <tr>
+                                <th scope="col">Producto</th>
+                                <th scope="col">Cantidad</th>
+                                <th scope="col">Precio Total</th>
+                                <th scope="col">Acciones</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
-                <button id="modalclick" data-action="{{route('productos.store')}}" data-form="#form-producto"
-                    data-method="POST" data-container="#listado" type="button" class="btn btn-primary store"
-                    data-modal="#modal-crate">Continuar</button>
+                <button id="modalclick" data-action="{{route('pedidos.store')}}" data-form="#form-pedido"
+                    data-method="POST" data-container="#listado" type="button" class="btn btn-primary store">Guardar</button>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
             </div>
         </div>
@@ -44,4 +51,5 @@
             $("#modal-create").modal("hide");
         });
     });
+
 </script>
