@@ -20,7 +20,7 @@
             <td>$<span class="menudeo">{{$producto->menudeo}}</span></td>
             <td>$<span class="mayoreo">{{$producto->mayoreo}}</span> <br>(mínimo <span class="cantidad_mayoreo">{{$producto->cantidad_mayoreo}}</span>)</td>
             <td>
-                <input type="number" id="cantidad" class="form-control" name="cantidad" min="1" value="1">
+                <input type="number" class="form-control cantidad" name="cantidad" min="1" value="1">
             </td>
             <td class="text-center">
                 <a class="btn btn-primary agregar">
@@ -46,22 +46,28 @@
     $('document').ready(function () {
         var productos = [];
         $('.agregar').click(function () {
-            var cantidad = $(this).parent().parent().find('#cantidad').val();
+            var cantidad = $(this).parent().parent().find('.cantidad').val();
             var id = $(this).parent().parent().find('.id').text();
             var nombre = $(this).parent().parent().find('.nombre').text();
             var menudeo = $(this).parent().parent().find('.menudeo').text();
             var mayoreo = $(this).parent().parent().find('.mayoreo').text();
-            var cantidad_mayoreo = $(this).parent().parent().find('.cantidad_mayoreo').text();
+            var cantidad_mayoreo = parseInt($(this).parent().parent().find('.cantidad_mayoreo').text());
+            if (cantidad >= cantidad_mayoreo){
+                var precio = mayoreo * cantidad;
+            } else {
+                var precio = menudeo * cantidad;
+            }
             var producto = {
                 id: id,
                 cantidad: cantidad,
                 nombre: nombre,
                 menudeo: menudeo,
                 mayoreo: mayoreo,
-                cantidad_mayoreo: cantidad_mayoreo
+                cantidad_mayoreo: cantidad_mayoreo,
+                precio: precio
             };
             var table = $('#carrito');
-            var html = `<tr><td><input type="hidden" name="productos[${id}]" value="${cantidad}">${nombre}}</td><td>${cantidad}</td>`;
+            var html = `<tr><td><span class="id d-none">${id}</span><input type="hidden" name="productos[${id}]" value="${cantidad}">${nombre}</td><td class="cantidad">${cantidad}</td>`;
             if (cantidad >= cantidad_mayoreo) {
                 html += '<td>$' + (cantidad * mayoreo) + '</td>';
             } else {
@@ -69,15 +75,38 @@
             }
             html += '<td><a class="btn btn-danger remove"><i class="fas fa-trash"></i></a></td></tr>';
             var row = table.find('tbody').append(html);
-            remove();
-
             productos.push(producto);
-            productos = JSON.stringify(productos);
+            var total = $('#total');
+            total.empty();
+            var total_value = 0.00;
+            for (var i = 0; i < productos.length; i++) {
+                total_value += parseFloat(productos[i].precio);
+            }
+            var html2 = `<h5>Total: $<span id="total_value">${total_value}</span></h5>`;
+            total.append(html2);
+            remove();    
             console.log(productos);
         });
         function remove(){
             $('.remove').click(function () {
+                var id = $(this).parent().parent().find('.id').text(); 
+                var cantidad = $(this).parent().parent().find('.cantidad').text();
                 $(this).parent().parent().remove();
+                // Eliminar producto de productos
+                console.log(id);
+                for (var i = 0; i < productos.length; i++) {
+                    if (productos[i].id == id && productos[i].cantidad == cantidad) {
+                        productos.splice(i, 1);
+                    }
+                }
+                var total = $('#total');
+                total.empty();
+                var total_value = 0.00;
+                for (var i = 0; i < productos.length; i++) {
+                    total_value += parseFloat(productos[i].precio);
+                }
+                var html2 = `<h5>Total: $<span id="total_value">${total_value}</span></h5>`;
+                total.append(html2);
             });
         }
     });

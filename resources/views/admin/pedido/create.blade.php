@@ -29,6 +29,7 @@
                             <tbody>
                             </tbody>
                         </table>
+                        <div id="total"></div>
                     </div>
                 </form>
             </div>
