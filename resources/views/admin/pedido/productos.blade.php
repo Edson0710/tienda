@@ -52,8 +52,10 @@
             var menudeo = $(this).parent().parent().find('.menudeo').text();
             var mayoreo = $(this).parent().parent().find('.mayoreo').text();
             var cantidad_mayoreo = parseInt($(this).parent().parent().find('.cantidad_mayoreo').text());
+            var mayoreo_bool = false;
             if (cantidad >= cantidad_mayoreo){
                 var precio = mayoreo * cantidad;
+                mayoreo_bool = true;
             } else {
                 var precio = menudeo * cantidad;
             }
@@ -64,36 +66,50 @@
                 menudeo: menudeo,
                 mayoreo: mayoreo,
                 cantidad_mayoreo: cantidad_mayoreo,
-                precio: precio
+                precio: precio,
+                mayoreo_bool: mayoreo_bool
             };
-            var table = $('#carrito');
-            var html = `<tr><td><span class="id d-none">${id}</span><input type="hidden" name="productos[${id}]" value="${cantidad}">${nombre}</td><td class="cantidad">${cantidad}</td>`;
-            if (cantidad >= cantidad_mayoreo) {
-                html += '<td>$' + (cantidad * mayoreo) + '</td>';
-            } else {
-                html += '<td>$' + (cantidad * menudeo) + '</td>';
+            var existe = false;
+            for (var i = 0; i < productos.length; i++) {
+                if (productos[i].id == id) {
+                    productos[i].cantidad = parseInt(productos[i].cantidad) + parseInt(cantidad);
+                    if(productos[i].cantidad >= productos[i].cantidad_mayoreo){
+                        productos[i].precio = productos[i].mayoreo * productos[i].cantidad;
+                        productos[i].mayoreo_bool = true;
+                    } else {
+                        productos[i].precio = productos[i].menudeo * productos[i].cantidad;
+                        productos[i].mayoreo_bool = false;
+                    }
+                    existe = true;
+                }
             }
-            html += '<td><a class="btn btn-danger remove"><i class="fas fa-trash"></i></a></td></tr>';
-            var row = table.find('tbody').append(html);
-            productos.push(producto);
+            if (!existe) {
+                productos.push(producto);
+            }
+            var table = $('#carrito');
+            table.find('tbody').empty();
+            for (var i = 0; i < productos.length; i++) {
+                var html = `<tr><td><span class="id d-none">${productos[i].id}</span><input type="hidden" name="productos[${productos[i].id}]" value="${productos[i].cantidad}">${productos[i].nombre}</td><td class="cantidad">${productos[i].cantidad}</td>`;
+                html += '<td>$' + productos[i].precio + '</td>';
+                html += '<td><a class="btn btn-danger remove"><i class="fas fa-trash"></i></a></td></tr>';
+                var row = table.find('tbody').append(html);
+            }
             var total = $('#total');
             total.empty();
             var total_value = 0.00;
             for (var i = 0; i < productos.length; i++) {
                 total_value += parseFloat(productos[i].precio);
             }
-            var html2 = `<h5>Total: $<span id="total_value">${total_value}</span></h5>`;
+            var html2 = `<h5><input type="hidden" name="precio_total" value="${total_value}"><b>Total:</b> $<span id="total_value">${total_value}</span></h5>`;
             total.append(html2);
-            remove();    
-            console.log(productos);
+            remove();
         });
         function remove(){
             $('.remove').click(function () {
-                var id = $(this).parent().parent().find('.id').text(); 
+                var id = $(this).parent().parent().find('.id').text();
                 var cantidad = $(this).parent().parent().find('.cantidad').text();
                 $(this).parent().parent().remove();
                 // Eliminar producto de productos
-                console.log(id);
                 for (var i = 0; i < productos.length; i++) {
                     if (productos[i].id == id && productos[i].cantidad == cantidad) {
                         productos.splice(i, 1);

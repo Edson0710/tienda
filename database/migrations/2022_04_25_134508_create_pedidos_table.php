@@ -22,6 +22,7 @@ class CreatePedidosTable extends Migration
             $table->string('telefono');
             $table->string('email');
             $table->unsignedBigInteger('estado_id');
+            $table->decimal('precio_total', 8, 2);
             $table->date('fecha_compra');
             $table->date('fecha_envio')->nullable();
             $table->date('fecha_entrega')->nullable();

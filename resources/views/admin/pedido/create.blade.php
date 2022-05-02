@@ -31,6 +31,22 @@
                         </table>
                         <div id="total"></div>
                     </div>
+                    <div class="form-group">
+                        <label for="nombre">Nombre</label>
+                        <input type="text" class="form-control" name="nombre" id="nombre" placeholder="Nombre" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="nombre">Dirección</label>
+                        <input type="text" class="form-control" name="direccion" id="direccion" placeholder="Dirección" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="nombre">Teléfono</label>
+                        <input type="number" class="form-control" name="telefono" id="telefono" placeholder="Teléfono" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="nombre">Email</label>
+                        <input type="email" class="form-control" name="email" id="email" placeholder="Email" required>
+                    </div>
                 </form>
             </div>
             <div class="modal-footer">
