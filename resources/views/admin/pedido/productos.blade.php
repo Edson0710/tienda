@@ -1,4 +1,3 @@
-@include('layouts.alerts')
 <div class="table-responsive">
     <table id="table2" class="table table-striped table-bordered">
         <thead>
@@ -41,7 +40,6 @@
     <div id="caption"></div>
 </div>
 
-<script src="{{asset('js/datatable.js')}}"></script>
 <script>
     $('document').ready(function () {
         var productos = [];

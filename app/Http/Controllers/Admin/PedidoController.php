@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Pedido;
 use App\Models\Producto;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class PedidoController extends Controller
 {
@@ -18,6 +19,14 @@ class PedidoController extends Controller
     {
         $pedidos = Pedido::all();
         return view('admin.pedido.index',[
+            'pedidos' => $pedidos
+        ]);
+    }
+
+    public function listado()
+    {
+        $pedidos = Pedido::all();
+        return view('admin.pedido.listado',[
             'pedidos' => $pedidos
         ]);
     }
@@ -51,9 +60,51 @@ class PedidoController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request->all());
-    }
+        $validator = Validator::make($request->all(),[
+            'precio_total' => 'required',
+            'nombre' => 'required|string',
+            'direccion' => 'required|string',
+            'telefono' => 'required|integer',
+            'email' => 'required|email',
+        ],[
+            'precio_total.required' => 'No se agregaron productos a este pedido',
+            'required' => 'El campo :attribute es obligatorio',
+            'email' => 'El campo :attribute debe ser un email válido',
+            'integer' => 'El campo :attribute debe ser un número',
+            'string' => 'El campo :attribute debe ser un texto',
+        ],[
+            'precio_total' => 'Precio total',
+            'nombre' => 'Nombre',
+            'direccion' => 'Direccion',
+            'telefono' => 'Telefono',
+            'email' => 'Email',
+        ]);
 
+        if ($validator->fails()) {
+            return redirect()->route('pedido.listado')
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+        try{
+            // Generar codigo de compra
+            $codigo = 'PED-'.date('YmdHis');
+            $pedido = new Pedido();
+            $pedido->codigo = $codigo;
+            $pedido->nombre = $request->nombre;
+            $pedido->direccion = $request->direccionn;
+            $pedido->telefono = $request->telefono;
+            $pedido->email = $request->email;
+            $pedido->estado_id = 1;
+            $pedido->precio_total = $request->precio_total;
+            $pedido->fecha_compra = date('Y-m-d');
+            $pedido->save();
+            dd('Pedido registrado');
+            return redirect()->route('pedido.listado')->with('success','Pedido creado correctamente');
+        }catch(\Exception $e){
+            return redirect()->route('pedido.listado')->with('error', 'Error al crear el pedido');
+        }
+    }
     /**
      * Display the specified resource.
      *

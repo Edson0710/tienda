@@ -72,20 +72,14 @@
 
 <div id="modal"></div>
 
-{{-- <div id="modal-imagen" class="modal">
-    <span class="close">&times;</span>
-    <img class="modal-content" id="img01">
-    <div id="caption"></div>
-</div> --}}
 
 @push('js')
 <script src="{{asset('js/datatable.js')}}"></script>
 <script src="{{asset('js/edit.js')}}"></script>
 <script src="{{asset('js/delete.js')}}"></script>
-<script src="{{asset('js/ver-imagen.js')}}"></script>
 @endpush
 <script src="{{asset('js/datatable.js')}}"></script>
 <script src="{{asset('js/edit.js')}}"></script>
 <script src="{{asset('js/delete.js')}}"></script>
-<script src="{{asset('js/ver-imagen.js')}}"></script>
+
 
