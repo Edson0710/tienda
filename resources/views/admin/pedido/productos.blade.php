@@ -40,6 +40,7 @@
     <div id="caption"></div>
 </div>
 
+<script src="{{asset('js/datatable.js')}}"></script>
 <script>
     $('document').ready(function () {
         var productos = [];

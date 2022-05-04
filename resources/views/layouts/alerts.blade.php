@@ -31,3 +31,14 @@
 </script>
 {{Session::forget('success')}}
 @endif
+@if (Session::has('warning'))
+<script>
+        Swal.fire({
+            title: 'Aviso!',
+            text: '{{Session::get('warning')}}',
+            icon: 'warning',
+            showConfirmButton: false,
+        })
+</script>
+{{Session::forget('success')}}
+@endif

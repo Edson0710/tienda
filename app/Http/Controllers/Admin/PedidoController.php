@@ -92,14 +92,18 @@ class PedidoController extends Controller
             $pedido = new Pedido();
             $pedido->codigo = $codigo;
             $pedido->nombre = $request->nombre;
-            $pedido->direccion = $request->direccionn;
+            $pedido->direccion = $request->direccion;
             $pedido->telefono = $request->telefono;
             $pedido->email = $request->email;
             $pedido->estado_id = 1;
             $pedido->precio_total = $request->precio_total;
             $pedido->fecha_compra = date('Y-m-d');
             $pedido->save();
-            dd('Pedido registrado');
+            // Guardar productos en pedido
+            $productos = $request->productos;
+            foreach ($productos as $producto => $cantidad) {
+                $pedido->productos()->attach($producto, ['cantidad' => $cantidad]);
+            }
             return redirect()->route('pedido.listado')->with('success','Pedido creado correctamente');
         }catch(\Exception $e){
             return redirect()->route('pedido.listado')->with('error', 'Error al crear el pedido');

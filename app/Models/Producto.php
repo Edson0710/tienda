@@ -19,7 +19,7 @@ class Producto extends Model
     }
 
     public function pedidos(){
-        return $this->belongsToMany(Pedido::class, 'pedido_productos');
+        return $this->belongsToMany(Pedido::class, 'pedido_productos')->withPivot('cantidad');
     }
 
     protected function setMenudeoAttribute($value){

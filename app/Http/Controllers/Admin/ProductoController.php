@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Categoria;
 use App\Models\Producto;
 use App\Models\Imagen;
+use App\Models\Pedido;
+use App\Models\PedidoProducto;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Validator;
@@ -173,6 +175,7 @@ class ProductoController extends Controller
             $producto->menudeo = $request->menudeo;
             $producto->mayoreo = $request->mayoreo;
             $producto->cantidad_mayoreo = $request->cantidad_mayoreo;
+            $producto->activo = $request->activo;
             $producto->save();
             $producto->categorias()->sync($request->categorias);
             // Eliminar imagenes
@@ -214,19 +217,28 @@ class ProductoController extends Controller
      */
     public function destroy($id)
     {
-        try{
-            $imagenes = Imagen::where('producto_id',$id)->get();
-            foreach($imagenes as $imagen){
-                // Eliminar imagen de la carpeta
-                File::delete(public_path('images/productos/'.$imagen->producto_id.'/'.$imagen->url));
-            }
-            // Borrar carpeta
-            File::deleteDirectory(public_path('images/productos/'.$id));
-            Producto::destroy($id);
-            return redirect()->route('producto.listado')->with('success','Producto eliminado correctamente');
+        $pedido = PedidoProducto::where('producto_id',$id)->first();
+        if($pedido){
+            $producto = Producto::find($id);
+            $producto->activo = false;
+            $producto->save();
+            return redirect()->route('producto.listado')->with('warning','No se puede eliminar el producto ya que tiene pedidos asociados. Por lo tanto solo será desactivado.');
         }
-        catch(\Exception $e){
-            return redirect()->route('producto.listado')->withErrors('Error al eliminar el producto');
+        else{
+            try{
+                $imagenes = Imagen::where('producto_id',$id)->get();
+                foreach($imagenes as $imagen){
+                    // Eliminar imagen de la carpeta
+                    File::delete(public_path('images/productos/'.$imagen->producto_id.'/'.$imagen->url));
+                }
+                // Borrar carpeta
+                File::deleteDirectory(public_path('images/productos/'.$id));
+                Producto::destroy($id);
+                return redirect()->route('producto.listado')->with('success','Producto eliminado correctamente');
+            }
+            catch(\Exception $e){
+                return redirect()->route('producto.listado')->withErrors('Error al eliminar el producto');
+            }
         }
     }
 }
