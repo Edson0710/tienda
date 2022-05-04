@@ -5,6 +5,7 @@
           <tr>
             <th scope="col">Código</th>
             <th scope="col">Contenido</th>
+            <th scope="col">Total</th>
             <th scope="col">Datos de envío</th>
             <th scope="col">Estado de envío</th>
             <th scope="col"><i class="fas fa-calendar-alt"></i>&nbsp;&nbsp;Compra</th>
@@ -21,13 +22,16 @@
             {{-- Enlistar contenido --}}
             <td>
                 @foreach ($pedido->productos as $producto)
-                    <b>{{$producto->nombre}}</b><br>
+                    <b style="color: #007bff">{{$producto->nombre}}</b><br>
+                    <small><b>Cant: </b>{{$producto->pivot->cantidad}}</small><br>
                 @endforeach
+            </td>
+            <td>${{$pedido->precio_total}}</td>
             <td>
-                <i class="fas fa-user"></i>&nbsp;&nbsp;{{$pedido->nombre}}<br>
-                <i class="fas fa-map-marker-alt"></i>&nbsp;&nbsp;{{$pedido->direccion}}<br>
-                <i class="fas fa-phone"></i>&nbsp;&nbsp;{{$pedido->telefono}}<br>
-                <i class="fas fa-envelope"></i>&nbsp;&nbsp;{{$pedido->email}}
+                <small><i class="fas fa-user"></i>&nbsp;&nbsp;{{$pedido->nombre}}</small><br>
+                <small><i class="fas fa-map-marker-alt"></i>&nbsp;&nbsp;{{$pedido->direccion}}</small><br>
+                <small><i class="fas fa-phone"></i>&nbsp;&nbsp;{{$pedido->telefono}}</small><br>
+                    <small><i class="fas fa-envelope"></i>&nbsp;&nbsp;{{$pedido->email}}</small>
             </td>
             <td class="text-center">
                 @if ($pedido->estado->nombre == 'Pendiente')
@@ -55,7 +59,7 @@
                     <span class="badge badge-danger">Sin fecha</span>
                 @endif
             <td class="text-center">
-                <a href="" data-to="modal" class="btn btn-warning edit">
+                <a href="{{route('pedidos.edit', $pedido->id)}}" data-to="modal" class="btn btn-warning edit">
                     <i class="fas fa-edit"></i>
                 </a>
             </td>

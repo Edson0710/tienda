@@ -32,14 +32,6 @@
       </table>
 </div>
 
-<div id="modal"></div>
-
-<div id="modal-imagen" class="modal">
-    <span class="close">&times;</span>
-    <img class="modal-content" id="img01">
-    <div id="caption"></div>
-</div>
-
 <script src="{{asset('js/datatable.js')}}"></script>
 <script>
     $('document').ready(function () {

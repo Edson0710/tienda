@@ -31,14 +31,6 @@ class PedidoController extends Controller
         ]);
     }
 
-    public function carrito()
-    {
-        $productos = Producto::all();
-        return view('admin.producto.listado',[
-            'productos' => $productos
-        ]);
-    }
-
     /**
      * Show the form for creating a new resource.
      *
@@ -46,7 +38,7 @@ class PedidoController extends Controller
      */
     public function create()
     {
-        $productos = Producto::all();
+        $productos = Producto::where('activo', 1)->get();
         return view('admin.pedido.create', [
             'productos' => $productos
         ]);
@@ -128,7 +120,12 @@ class PedidoController extends Controller
      */
     public function edit($id)
     {
-        //
+        $productos = Producto::where('activo', 1)->get();
+        $pedido = Pedido::find($id);
+        return view('admin.pedido.edit',[
+            'productos' => $productos,
+            'pedido' => $pedido
+        ]);
     }
 
     /**
