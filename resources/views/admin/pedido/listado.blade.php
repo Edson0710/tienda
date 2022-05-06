@@ -17,7 +17,7 @@
         </thead>
         <tbody>
         @foreach ($pedidos as $pedido)
-          <tr>
+          <tr @if ($pedido->estado_id == 4) style="background-color: #f5c6cb;" @endif>
             <td>{{$pedido->codigo}}</td>
             {{-- Enlistar contenido --}}
             <td>
@@ -46,14 +46,19 @@
             </td>
             <td class="text-center">{{$pedido->fecha_compra}}</td>
             <td class="text-center">
-                @if ($pedido->fecha_emvio!= null)
+                @if ($pedido->fecha_envio!= null)
                     {{$pedido->fecha_envio}}
                 @else
                     <span class="badge badge-danger">Sin fecha</span>
                 @endif
             </td>
-            <td class="text-center">XXXXX</td>
-            {{-- <td class="text-center">{{$pedido->clave}}</td> --}}
+            <td class="text-center">
+                @if ($pedido->clave!= null)
+                    {{$pedido->clave}}
+                @else
+                    <span class="badge badge-danger">Sin clave</span>
+                @endif
+            </td>
             <td class="text-center">
                 @if ($pedido->fecha_entrega!= null)
                     {{$pedido->fecha_entrega}}
@@ -68,7 +73,7 @@
                         </a>
                     </div>
                     <div class="col-6">
-                        <a href="" data-to="modal" class="btn btn-secondary cancel mt-1">
+                        <a href="" data-to="modal" class="btn btn-secondary cancelar mt-1">
                             <i class="fas fa-ban"></i>
                         </a>
                     </div>
@@ -80,9 +85,14 @@
                         </a>
                     </div>
                     <div class="col-6">
-                        <a href="" data-to="modal" class="btn btn-danger cancel mt-1">
-                            <i class="fas fa-trash"></i>
-                        </a>
+                        <form action="{{route('pedido.envioUpdate', $pedido->id)}}" data-method="POST" class="form-destroy" data-to="#listado">
+                            @csrf
+                            @method('PUT')
+                            <input type="hidden" name="status" value="4">
+                            <button type="button" class="btn btn-danger cancelar mt-1">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </form>
                     </div>
                 </div>
             </td>

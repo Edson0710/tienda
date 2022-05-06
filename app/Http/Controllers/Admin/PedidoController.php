@@ -155,6 +155,7 @@ class PedidoController extends Controller
         }
         catch(\Exception $e){
             return redirect()->route('pedido.listado')->withErrors('Error al actualizar el pedido');
+            // return redirect()->route('pedido.listado')->withErrors($e->getMessage());
         }
     }
 
@@ -177,6 +178,7 @@ class PedidoController extends Controller
     }
 
     public function envioUpdate(Request $request, $id){
+        // dd($request->all());
         $pedido = Pedido::find($id);
         $status = $request->status;
         // Enviado
@@ -200,6 +202,12 @@ class PedidoController extends Controller
             $pedido->fecha_entrega = null;
             $pedido->save();
         }
+        // Cancelado
+        if($status == 4){
+            $pedido->estado_id = 4;
+            $pedido->save();
+        }
+        return redirect()->route('pedido.listado')->with('success','Pedido actualizado correctamente');
     }
 
 

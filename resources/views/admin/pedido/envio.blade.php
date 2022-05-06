@@ -22,7 +22,7 @@
                     </div>
                     <div class="form-group">
                         <label for="clave">Clave</label>
-                        <input type="text" class="form-control" name="clave" id="clave" value="" placeholder="clave" {{$pedido->estado_id != 2 ? 'disabled' : ''}} required>
+                        <input type="text" class="form-control" name="clave" id="clave" value="{{$pedido->clave}}" placeholder="clave" {{$pedido->estado_id != 2 ? 'disabled' : ''}} required>
                 </form>
             </div>
             <div class="modal-footer">

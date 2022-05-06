@@ -18,6 +18,25 @@ $(document).ready(function() {
         });
     });
 
+    $('.cancelar').on('click', function(e) {
+        e.preventDefault();
+        var form = $(this).parents('form');
+        Swal.fire({
+            title: '¿Estás seguro?',
+            text: "¡Estás por cancelar este pedido!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: '¡Sí, cancelar!'
+        }).then((result) => {
+            if (result.value) {
+                form.submit();
+                // console.log('eliminar.js');
+            }
+        });
+    });
+
     $('.form-destroy').on('submit', function(e){
         e.preventDefault();
         var method = $(this).data('method');

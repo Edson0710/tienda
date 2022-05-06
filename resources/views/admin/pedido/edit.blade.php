@@ -18,7 +18,7 @@
                 for (var i = 0; i < productos_carrito.length; i++) {
                     total_value += parseFloat(productos_carrito[i].precio);
                 }
-                var html2 = `<h5>Total: $<span id="total_value">${total_value}</span></h5>`;
+                var html2 = `<h5><input type="hidden" name="precio_total" value="${total_value}"><b>Total:</b> $<span id="total_value">${total_value}</span></h5>`;
                 total.append(html2);
             });
         }
