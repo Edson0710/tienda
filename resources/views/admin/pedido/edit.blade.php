@@ -54,6 +54,7 @@
             <div class="modal-body">
                 <p>Llena los siguientes campos:</p>
                 <form id="form-pedido" enctype="multipart/form-data">
+                    @method('PUT')
                     @csrf
                     <div class="form-group">
                         <label for="nombre">Seleccionar productos</label>
@@ -110,7 +111,7 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button id="modalclick" data-action="{{route('pedidos.store')}}" data-form="#form-pedido"
+                <button id="modalclick" data-action="{{route('pedidos.update', $pedido->id)}}" data-form="#form-pedido"
                     data-method="POST" data-container="#listado" type="button" class="btn btn-primary store">Guardar</button>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
             </div>

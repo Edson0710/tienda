@@ -25,6 +25,7 @@ class CreatePedidosTable extends Migration
             $table->decimal('precio_total', 8, 2);
             $table->date('fecha_compra');
             $table->date('fecha_envio')->nullable();
+            $table->string('clave')->nullable();
             $table->date('fecha_entrega')->nullable();
             $table->timestamps();
             $table->foreign('estado_id')->references('id')->on('estados');

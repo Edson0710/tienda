@@ -137,7 +137,25 @@ class PedidoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        try{
+            $pedido = Pedido::find($id);
+            $pedido->nombre = $request->nombre;
+            $pedido->direccion = $request->direccion;
+            $pedido->telefono = $request->telefono;
+            $pedido->email = $request->email;
+            $pedido->precio_total = $request->precio_total;
+            $pedido->save();
+            // Guardar productos en pedido
+            $productos = $request->productos;
+            $pedido->productos()->detach();
+            foreach ($productos as $producto => $cantidad) {
+                $pedido->productos()->attach($producto, ['cantidad' => $cantidad]);
+            }
+            return redirect()->route('pedido.listado')->with('success','Pedido actualizado correctamente');
+        }
+        catch(\Exception $e){
+            return redirect()->route('pedido.listado')->withErrors('Error al actualizar el pedido');
+        }
     }
 
     /**
@@ -150,4 +168,39 @@ class PedidoController extends Controller
     {
         //
     }
+
+    public function envio($id){
+        $pedido = Pedido::find($id);
+        return view('admin.pedido.envio',[
+            'pedido' => $pedido
+        ]);
+    }
+
+    public function envioUpdate(Request $request, $id){
+        $pedido = Pedido::find($id);
+        $status = $request->status;
+        // Enviado
+        if($status == 2){
+            $pedido->estado_id = 2;
+            $pedido->fecha_envio = date('Y-m-d');
+            $pedido->clave = $request->clave;
+            $pedido->save();
+        }
+        // Entregado
+        if($status == 3){
+            $pedido->estado_id = 3;
+            $pedido->fecha_entrega = date('Y-m-d');
+            $pedido->save();
+        }
+        // Pendiente de nuevo
+        if($status == 1){
+            $pedido->estado_id = 1;
+            $pedido->fecha_envio = null;
+            $pedido->clave = null;
+            $pedido->fecha_entrega = null;
+            $pedido->save();
+        }
+    }
+
+
 }

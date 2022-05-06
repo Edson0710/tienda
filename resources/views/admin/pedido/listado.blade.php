@@ -7,12 +7,12 @@
             <th scope="col">Contenido</th>
             <th scope="col">Total</th>
             <th scope="col">Datos de envío</th>
-            <th scope="col">Estado de envío</th>
+            <th scope="col">Status</th>
             <th scope="col"><i class="fas fa-calendar-alt"></i>&nbsp;&nbsp;Compra</th>
             <th scope="col"><i class="fas fa-calendar-alt"></i>&nbsp;&nbsp;Envío</th>
+            <th scope="col">Clave</th>
             <th scope="col"><i class="fas fa-calendar-alt"></i>&nbsp;&nbsp;Entrega</th>
-            <th scope="col">Editar</th>
-            <th scope="col">Cancelar</th>
+            <th scope="col">Acciones</th>
           </tr>
         </thead>
         <tbody>
@@ -52,6 +52,8 @@
                     <span class="badge badge-danger">Sin fecha</span>
                 @endif
             </td>
+            <td class="text-center">XXXXX</td>
+            {{-- <td class="text-center">{{$pedido->clave}}</td> --}}
             <td class="text-center">
                 @if ($pedido->fecha_entrega!= null)
                     {{$pedido->fecha_entrega}}
@@ -59,14 +61,30 @@
                     <span class="badge badge-danger">Sin fecha</span>
                 @endif
             <td class="text-center">
-                <a href="{{route('pedidos.edit', $pedido->id)}}" data-to="modal" class="btn btn-warning edit">
-                    <i class="fas fa-edit"></i>
-                </a>
-            </td>
-            <td class="text-center">
-                <a href="" data-to="modal" class="btn btn-danger cancel">
-                    <i class="fas fa-ban"></i>
-                </a>
+                <div class="row">
+                    <div class="col-6">
+                        <a href="{{route('pedidos.edit', $pedido->id)}}" data-to="modal" class="btn btn-warning edit mt-1">
+                            <i class="fas fa-edit"></i>
+                        </a>
+                    </div>
+                    <div class="col-6">
+                        <a href="" data-to="modal" class="btn btn-secondary cancel mt-1">
+                            <i class="fas fa-ban"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <a href="{{route('pedido.envio', $pedido->id)}}" data-to="modal" class="btn btn-primary edit mt-1">
+                            <i class="fas fa-shipping-fast"></i>
+                        </a>
+                    </div>
+                    <div class="col-6">
+                        <a href="" data-to="modal" class="btn btn-danger cancel mt-1">
+                            <i class="fas fa-trash"></i>
+                        </a>
+                    </div>
+                </div>
             </td>
           </tr>
         @endforeach

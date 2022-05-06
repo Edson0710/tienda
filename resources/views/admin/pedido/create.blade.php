@@ -1,3 +1,6 @@
+<script>
+    var productos_carrito = [];
+</script>   
 <div id="modal-create" class="modal">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">

@@ -36,6 +36,9 @@
 <script>
     $('document').ready(function () {
         var productos = [];
+        if (productos_carrito.length > 0) {
+            productos = productos_carrito;
+        }
         $('.agregar').click(function () {
             var cantidad = $(this).parent().parent().find('.cantidad').val();
             var id = $(this).parent().parent().find('.id').text();
