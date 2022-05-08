@@ -31,7 +31,7 @@
                 <small><i class="fas fa-user"></i>&nbsp;&nbsp;{{$pedido->nombre}}</small><br>
                 <small><i class="fas fa-map-marker-alt"></i>&nbsp;&nbsp;{{$pedido->direccion}}</small><br>
                 <small><i class="fas fa-phone"></i>&nbsp;&nbsp;{{$pedido->telefono}}</small><br>
-                    <small><i class="fas fa-envelope"></i>&nbsp;&nbsp;{{$pedido->email}}</small>
+                    <small><i class="fas fa-envelope"></i>&nbsp;<a href="{{route('pedido.correos', $pedido->id)}}" data-to="modal" class="edit">{{$pedido->email}}</a></small>
             </td>
             <td class="text-center">
                 @if ($pedido->estado->nombre == 'Pendiente')
@@ -73,9 +73,14 @@
                         </a>
                     </div>
                     <div class="col-6">
-                        <a href="" data-to="modal" class="btn btn-secondary cancelar mt-1">
-                            <i class="fas fa-ban"></i>
-                        </a>
+                        <form action="{{route('pedido.envioUpdate', $pedido->id)}}" data-method="POST" class="form-destroy" data-to="#listado">
+                            @csrf
+                            @method('PUT')
+                            <input type="hidden" name="status" value="4">
+                            <button type="button" class="btn btn-secondary cancelar mt-1">
+                                <i class="fas fa-ban"></i>
+                            </button>
+                        </form>
                     </div>
                 </div>
                 <div class="row">
@@ -85,11 +90,11 @@
                         </a>
                     </div>
                     <div class="col-6">
-                        <form action="{{route('pedido.envioUpdate', $pedido->id)}}" data-method="POST" class="form-destroy" data-to="#listado">
+                        <form action="{{route('pedidos.destroy', $pedido->id)}}" data-method="POST" class="form-destroy" data-to="#listado">
                             @csrf
-                            @method('PUT')
+                            @method('DELETE')
                             <input type="hidden" name="status" value="4">
-                            <button type="button" class="btn btn-danger cancelar mt-1">
+                            <button type="button" class="btn btn-danger eliminar mt-1">
                                 <i class="fas fa-trash"></i>
                             </button>
                         </form>

@@ -167,7 +167,14 @@ class PedidoController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try{   
+            $pedido = Pedido::find($id);
+            $pedido->delete();
+            return redirect()->route('pedido.listado')->with('success','Pedido eliminado correctamente');
+        }
+        catch(\Exception $e){
+            return redirect()->route('pedido.listado')->withErrors('Error al eliminar el pedido');
+        }
     }
 
     public function envio($id){
@@ -178,7 +185,6 @@ class PedidoController extends Controller
     }
 
     public function envioUpdate(Request $request, $id){
-        // dd($request->all());
         $pedido = Pedido::find($id);
         $status = $request->status;
         // Enviado
@@ -208,6 +214,11 @@ class PedidoController extends Controller
             $pedido->save();
         }
         return redirect()->route('pedido.listado')->with('success','Pedido actualizado correctamente');
+    }
+
+    public function correos($id)
+    {
+        return view('admin.pedido.correos');
     }
 
 
