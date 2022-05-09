@@ -38,7 +38,7 @@
             </div>
             <div class="modal-footer">
                 <button id="modalclick" data-action="" data-form="#form-envio"
-                    data-method="POST" data-container="#listado" type="button" class="btn btn-primary store">Guardar</button>
+                    data-method="POST" data-container="#listado" type="button" class="btn btn-primary store">Enviar</button>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
             </div>
         </div>
