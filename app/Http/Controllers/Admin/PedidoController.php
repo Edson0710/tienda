@@ -167,7 +167,7 @@ class PedidoController extends Controller
      */
     public function destroy($id)
     {
-        try{   
+        try{
             $pedido = Pedido::find($id);
             $pedido->delete();
             return redirect()->route('pedido.listado')->with('success','Pedido eliminado correctamente');
@@ -218,7 +218,10 @@ class PedidoController extends Controller
 
     public function correos($id)
     {
-        return view('admin.pedido.correos');
+        $pedido = Pedido::find($id);
+        return view('admin.pedido.correos', [
+            'pedido' => $pedido
+        ]);
     }
 
 

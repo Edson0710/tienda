@@ -12,7 +12,27 @@
                     @method('PUT')
                     @csrf
                     <div class="form-group">
-                        <label for="status">Seleccionar status</label>
+                        <label for="correo">Correo</label>
+                        <input type="email" class="form-control" id="correo" name="correo" value="{{$pedido->email}}" placeholder="Correo" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="status">Seleccionar Asunto</label>
+                        <select name="asunto" id="asunto" class="form-control">
+                            <option value="">Seleccionar</option>
+                            <option value="Envio">Envio de pedido</option>
+                            <option value="Cancelacion">Cancelacion de pedido</option>
+                            <option value="Personalizado">Personalizar</option>
+                        </select>
+                    </div>
+                    <div class="personalizar d-none">
+                        <div class="form-group">
+                            <label for="asunto">Asunto</label>
+                            <input type="text" class="form-control" id="asunto" name="asunto" placeholder="Asunto">
+                        </div>
+                        <div class="form-group">
+                            <label for="mensaje">Mensaje</label>
+                            <textarea class="form-control" id="mensaje" name="mensaje" rows="3" placeholder="Mensaje"></textarea>
+                        </div>
                     </div>
                 </form>
             </div>
@@ -32,6 +52,14 @@
         $('#modal-edit').modal('toggle');
         $("#modalclick").click(function () {
             $("#modal-edit").modal("hide");
+        });
+        $('#asunto').on('change', function () {
+            if ($(this).val() == 'Personalizado') {
+                $('.personalizar').removeClass('d-none');
+            }
+            else {
+                $('.personalizar').addClass('d-none');
+            }
         });
     });
 </script>
