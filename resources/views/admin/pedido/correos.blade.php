@@ -9,11 +9,11 @@
             </div>
             <div class="modal-body">
                 <form id="form-envio" enctype="multipart/form-data">
-                    @method('PUT')
                     @csrf
                     <div class="form-group">
                         <label for="correo">Correo</label>
-                        <input type="email" class="form-control" id="correo" name="correo" value="{{$pedido->email}}" placeholder="Correo" readonly>
+                        <input type="email" class="form-control" id="correo" name="correo" value="{{$pedido->email}}" placeholder="Correo">
+
                     </div>
                     <div class="form-group">
                         <label for="status">Seleccionar Asunto</label>
@@ -26,8 +26,8 @@
                     </div>
                     <div class="personalizar d-none">
                         <div class="form-group">
-                            <label for="asunto">Asunto</label>
-                            <input type="text" class="form-control" id="asunto" name="asunto" placeholder="Asunto">
+                            <label for="asunto_personalizado">Asunto</label>
+                            <input type="text" class="form-control" id="asunto_personalizado" name="asunto_personalizado" placeholder="Asunto">
                         </div>
                         <div class="form-group">
                             <label for="mensaje">Mensaje</label>
@@ -37,7 +37,7 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button id="modalclick" data-action="" data-form="#form-envio"
+                <button id="modalclick" data-action="{{route('pedido.enviar', $pedido->id)}}" data-form="#form-envio"
                     data-method="POST" data-container="#listado" type="button" class="btn btn-primary store">Enviar</button>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
             </div>

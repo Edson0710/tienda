@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Mail\PedidoEnviadoMail;
 use App\Models\Pedido;
 use App\Models\Producto;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 
 class PedidoController extends Controller
@@ -222,6 +224,23 @@ class PedidoController extends Controller
         return view('admin.pedido.correos', [
             'pedido' => $pedido
         ]);
+    }
+
+    public function enviar(Request $request, $id){
+        // dd($request->all());
+        if($request->asunto == ''){
+            return redirect()->route('pedido.listado')->withErrors('Debe ingresar un asunto');
+        }
+        if($request->asunto == 'Envio'){
+            try{
+                Mail::to($request->correo)->send(new PedidoEnviadoMail($id));
+                return redirect()->route('pedido.listado')->with('success', 'Enviado');
+            }
+            catch(\Exception $e){
+                // return redirect()->route('pedido.listado')->withErrors('Error al enviar el correo');
+                return redirect()->route('pedido.listado')->withErrors($e->getMessage());
+            }
+        }
     }
 
 
