@@ -84,7 +84,7 @@
             table.find('tbody').empty();
             for (var i = 0; i < productos.length; i++) {
                 var html = `<tr><td><span class="id d-none">${productos[i].id}</span><input type="hidden" name="productos[${productos[i].id}]" value="${productos[i].cantidad}">${productos[i].nombre}</td><td class="cantidad">${productos[i].cantidad}</td>`;
-                html += '<td>$' + productos[i].precio + '</td>';
+                html += `<td><input type="hidden" name="precios[${productos[i].id}]" value="${productos[i].precio}">` + productos[i].precio + '</td>';
                 html += '<td><a class="btn btn-danger remove"><i class="fas fa-trash"></i></a></td></tr>';
                 var row = table.find('tbody').append(html);
             }

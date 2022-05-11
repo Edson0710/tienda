@@ -18,6 +18,7 @@ class CreatePedidoProductosTable extends Migration
             $table->foreignId('pedido_id')->nullable()->constrained('pedidos')->cascadeOnUpdate()->CascadeOnDelete();
             $table->foreignId('producto_id')->nullable()->constrained('productos')->cascadeOnUpdate()->CascadeOnDelete();
             $table->integer('cantidad');
+            $table->decimal('precio', 8, 2);
             $table->text('observaciones')->nullable();
             $table->timestamps();
         });

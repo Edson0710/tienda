@@ -27,7 +27,7 @@
         table.find('tbody').empty();
         for (var i = 0; i < productos_carrito.length; i++) {
             var html = `<tr><td><span class="id d-none">${productos_carrito[i].id}</span><input type="hidden" name="productos[${productos_carrito[i].id}]" value="${productos_carrito[i].cantidad}">${productos_carrito[i].nombre}</td><td class="cantidad">${productos_carrito[i].cantidad}</td>`;
-            html += '<td>$' + productos_carrito[i].precio + '</td>';
+                html += `<td><input type="hidden" name="precios[${productos_carrito[i].id}]" value="${productos_carrito[i].precio}">` + productos_carrito[i].precio + '</td>';
             html += '<td><a class="btn btn-danger remove"><i class="fas fa-trash"></i></a></td></tr>';
             var row = table.find('tbody').append(html);
         }

@@ -16,4 +16,12 @@ class Pedido extends Model
     public function estado(){
         return $this->belongsTo(Estado::class);
     }
+
+    protected function getPrecioTotalAttribute($value){
+        return number_format($value, 2);
+    }
+
+    protected function getFechaCompraAttribute($value){
+        return date('d/m/Y', strtotime($value));
+    }
 }

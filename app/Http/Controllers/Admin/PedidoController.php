@@ -95,8 +95,10 @@ class PedidoController extends Controller
             $pedido->save();
             // Guardar productos en pedido
             $productos = $request->productos;
-            foreach ($productos as $producto => $cantidad) {
-                $pedido->productos()->attach($producto, ['cantidad' => $cantidad]);
+            $precios = $request->precios;
+            // Agregar cantidad y precio a cada producto
+            foreach ($productos as $key => $producto) {
+                $pedido->productos()->attach($key, ['cantidad' => $productos[$key], 'precio' => $precios[$key]]);
             }
             return redirect()->route('pedido.listado')->with('success','Pedido creado correctamente');
         }catch(\Exception $e){
@@ -149,9 +151,10 @@ class PedidoController extends Controller
             $pedido->save();
             // Guardar productos en pedido
             $productos = $request->productos;
+            $precios = $request->precios;
             $pedido->productos()->detach();
-            foreach ($productos as $producto => $cantidad) {
-                $pedido->productos()->attach($producto, ['cantidad' => $cantidad]);
+            foreach ($productos as $key => $producto) {
+                $pedido->productos()->attach($key, ['cantidad' => $productos[$key], 'precio' => $precios[$key]]);
             }
             return redirect()->route('pedido.listado')->with('success','Pedido actualizado correctamente');
         }
