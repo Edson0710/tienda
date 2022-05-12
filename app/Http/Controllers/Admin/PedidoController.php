@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Mail\PedidoCanceladoMail;
 use App\Mail\PedidoEnviadoMail;
+use App\Mail\PedidoPersonalizadoMail;
 use App\Models\Correo;
 use App\Models\Pedido;
 use App\Models\Producto;
@@ -225,9 +226,11 @@ class PedidoController extends Controller
 
     public function correos($id)
     {
+        $correos = Correo::where('pedido_id', $id)->get();
         $pedido = Pedido::find($id);
         return view('admin.pedido.correos', [
-            'pedido' => $pedido
+            'pedido' => $pedido,
+            'correos' => $correos
         ]);
     }
 
@@ -251,6 +254,16 @@ class PedidoController extends Controller
                     Mail::to($request->correo)->send(new PedidoCanceladoMail($id));
                 }
                 catch(\Exception $e){
+                    // return redirect()->route('pedido.listado')->withErrors('Error al enviar el correo');
+                    return redirect()->route('pedido.listado')->withErrors($e->getMessage());
+                }
+            }
+            if($request->asunto == 'Personalizado'){
+                try{
+                    Mail::to($request->correo)->send(new PedidoPersonalizadoMail($id,$request->asunto_personalizado ,$request->mensaje));
+                    $request->asunto = $request->asunto_personalizado;
+                }
+                    catch(\Exception $e){
                     // return redirect()->route('pedido.listado')->withErrors('Error al enviar el correo');
                     return redirect()->route('pedido.listado')->withErrors($e->getMessage());
                 }

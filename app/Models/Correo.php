@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Correo extends Model
 {
     use HasFactory;
+
+    protected function getFechaAttribute($value){
+        return date('d/m/Y', strtotime($value));
+    }
 }

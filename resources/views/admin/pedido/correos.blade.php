@@ -8,6 +8,27 @@
                 </button>
             </div>
             <div class="modal-body">
+                @if(count($correos) > 0)
+                <div class="table-responsive">
+                    <label for="correo">Histórico</label>
+                    <table id="table2" class="table">
+                        <thead>
+                          <tr>
+                            <th scope="col">Asunto</th>
+                            <th scope="col">Fecha</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                        @foreach ($correos as $correo)
+                          <tr>
+                            <td>{{$correo->asunto}}</td>
+                            <td>{{$correo->fecha}}</span></td>
+                          </tr>
+                        @endforeach
+                        </tbody>
+                      </table>
+                </div>
+                @endif
                 <form id="form-envio" enctype="multipart/form-data">
                     @csrf
                     <div class="form-group">
