@@ -10,7 +10,7 @@ class Pedido extends Model
     use HasFactory;
 
     public function productos(){
-        return $this->belongsToMany(Producto::class, 'pedido_productos')->withPivot('cantidad');
+        return $this->belongsToMany(Producto::class, 'pedido_productos')->withPivot('cantidad', 'precio');
     }
 
     public function estado(){
@@ -22,6 +22,20 @@ class Pedido extends Model
     }
 
     protected function getFechaCompraAttribute($value){
+        return date('d/m/Y', strtotime($value));
+    }
+
+    protected function getFechaEntregaAttribute($value){
+        if($value == null){
+            return null;
+        }
+        return date('d/m/Y', strtotime($value));
+    }
+
+    protected function getFechaEnvioAttribute($value){
+        if($value == null){
+            return null;
+        }
         return date('d/m/Y', strtotime($value));
     }
 }

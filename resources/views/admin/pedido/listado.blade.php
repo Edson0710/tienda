@@ -24,6 +24,7 @@
                 @foreach ($pedido->productos as $producto)
                     <b style="color: #007bff">{{$producto->nombre}}</b><br>
                     <small><b>Cant: </b>{{$producto->pivot->cantidad}}</small><br>
+                    <small><b>Precio: </b>${{$producto->pivot->precio}}</small><br>
                 @endforeach
             </td>
             <td>${{$pedido->precio_total}}</td>
