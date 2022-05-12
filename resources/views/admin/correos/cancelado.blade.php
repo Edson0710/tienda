@@ -15,9 +15,15 @@
                 <div class="encabezado pl-3 py-2">
                     <img  src="{{asset('images/logos/logo-gris.png')}}" alt="Petshop logo" title="Petshop logo" width="90">
                     <span class="ml-5 my-auto titulo">Arte y Diseño Santa Anita</span></div>
-                <div class=" resumen mt-5 text-center">
-                    <h1>Gracias por tu compra</h2>
-                        <p style="color: #333333;">En breve te enviaremos un correo con los detalles de tu compra. </p>
+                <div class=" resumen mt-5">
+                    <h2 class="text-center">Tu pedido ha sido cancelado</h2>
+                        <p style="color: #333333;" class="mt-5 px-3">
+                            Hola, <b>{{$pedido->nombre}}:</b>
+                        </p>
+                        <p style="color: #333333;" class="px-3 text-justify">
+                            Agradecemos la confianza que nos brindas al realizar tus compras con nosotros.<br>
+                            Lamentamos informarte que algo salió mal y tu pedido fue cancelado. Sabemos los inconvenientes que esto te genery te aseguramos que estamos trabajando para que esto no vuelva a ocurrir.
+                        </p>
                         <div class="mt-5 px-3 py-2 table-back">
                             <table class="table">
                                 <thead>
@@ -80,27 +86,6 @@
                             </tbody>
                         </table>
                     </div>
-                </div>
-                <div class="total" align="right">
-                    <table class="table">
-                        <tbody>
-                            <tr>
-                                <td class="pr-5">Subtotal:</td>
-                                <td class="pl-5 text-right">${{$pedido->precio_total}}</td>
-                            </tr>
-                            <tr>
-                                <td class="pr-5">Envío:</td>
-                                <td class="pl-5 text-right" style="color: #d48344;"><b>Gratis</b></td>
-                            </tr>
-                            {{-- <tr>
-                                <td class="pr-5">Descuento:</td>
-                                <td class="pl-5 text-right">$0.00</td>
-                            </tr> --}}
-                            <tr>
-                                <td class="pr-5"><b>Total:</b></td>
-                                <td class="pl-5 text-right" style="color: #d48344;"><b>${{$pedido->precio_total}}</b></td>
-                            </tr>
-                    </table>
                 </div>
                 <div class="contacto text-center pt-3"><a href target="_blank"><img
                             src="{{asset('images/logos/logo-gris.png')}}"

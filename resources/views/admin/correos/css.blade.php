@@ -4,6 +4,12 @@ body {
     background-color: #eeeeee;
 }
 
+.titulo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: gray;
+}
+
 .contenedor {
     background-color: white;
     width: 600px;

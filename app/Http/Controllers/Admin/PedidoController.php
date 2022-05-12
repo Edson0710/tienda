@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Mail\PedidoCanceladoMail;
 use App\Mail\PedidoEnviadoMail;
+use App\Models\Correo;
 use App\Models\Pedido;
 use App\Models\Producto;
 use Illuminate\Http\Request;
@@ -234,15 +236,32 @@ class PedidoController extends Controller
         if($request->asunto == ''){
             return redirect()->route('pedido.listado')->withErrors('Debe ingresar un asunto');
         }
-        if($request->asunto == 'Envio'){
-            try{
-                Mail::to($request->correo)->send(new PedidoEnviadoMail($id));
-                return redirect()->route('pedido.listado')->with('success', 'Enviado');
+        else{
+            if($request->asunto == 'Envio'){
+                try{
+                    Mail::to($request->correo)->send(new PedidoEnviadoMail($id));
+                }
+                catch(\Exception $e){
+                    // return redirect()->route('pedido.listado')->withErrors('Error al enviar el correo');
+                    return redirect()->route('pedido.listado')->withErrors($e->getMessage());
+                }
             }
-            catch(\Exception $e){
-                // return redirect()->route('pedido.listado')->withErrors('Error al enviar el correo');
-                return redirect()->route('pedido.listado')->withErrors($e->getMessage());
+            if($request->asunto == 'Cancelacion'){
+                try{
+                    Mail::to($request->correo)->send(new PedidoCanceladoMail($id));
+                }
+                catch(\Exception $e){
+                    // return redirect()->route('pedido.listado')->withErrors('Error al enviar el correo');
+                    return redirect()->route('pedido.listado')->withErrors($e->getMessage());
+                }
             }
+            $correo = new Correo();
+            $correo->correo = $request->correo;
+            $correo->asunto = $request->asunto;
+            $correo->fecha = date('Y-m-d');
+            $correo->pedido_id = $id;
+            $correo->save();
+            return redirect()->route('pedido.listado')->with('success', 'Enviado');
         }
     }
 
