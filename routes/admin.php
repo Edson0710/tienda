@@ -28,5 +28,6 @@ Route::group(['prefix' => 'pedido'], function () {
     Route::put('envio/{id}', [PedidoController::class, 'envioUpdate'])->name('pedido.envioUpdate');
     Route::get('correos/{id}', [PedidoController::class, 'correos'])->name('pedido.correos');
     Route::post('enviar/{id}', [PedidoController::class, 'enviar'])->name('pedido.enviar');
+    Route::get('pdf/{id}', [PedidoController::class, 'pdf'])->name('pedido.pdf');
 });
 

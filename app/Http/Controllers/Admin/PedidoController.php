@@ -278,5 +278,14 @@ class PedidoController extends Controller
         }
     }
 
+    public function pdf($id){
+        $pedido = Pedido::find($id);
+        $pdf = app('dompdf.wrapper');
+        $pdf->loadView('admin.pdf.enviado', [
+            'pedido' => $pedido,
+        ]);
+        return $pdf->download('pedido.pdf');
+    }
+
 
 }

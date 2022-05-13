@@ -1,0 +1,94 @@
+
+    @include('admin.correos.css')
+        <div>
+            <div class="contenedor">
+                <div class="encabezado pl-3 py-2">
+                    {{-- <img  src="{{asset('images/logos/logo-gris.png')}}" alt="Petshop logo" title="Petshop logo" width="90"> --}}
+                    <span class="ml-5 my-auto titulo">Arte y Diseño Santa Anita</span></div>
+                <div class=" resumen mt-5 text-center">
+                    <h1>Gracias por tu compra</h2>
+                        <p style="color: #333333;">En breve te enviaremos un correo con los detalles de tu compra. </p>
+                        <div class="mt-5 px-3 py-2 table-back">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th colspan="2" style="width: 50%;">
+                                            <h4>Resumen:</h4>
+                                        </th>
+                                        <th style="width: 50%;">
+                                            <h4>Dirección:</h4>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Pedido #:</td>
+                                        <td>{{$pedido->codigo}}</td>
+                                        <td rowspan="3">{{$pedido->direccion}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Fecha:</td>
+                                        <td>{{$pedido->fecha_compra}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Total:</td>
+                                        <td>${{$pedido->precio_total}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                </div>
+                <div class="articulos">
+                    <div class="mt-5 px-3 py-2 table-back">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th style="width: 30%;">
+                                        <h4>Artículos</h4>
+                                    </th>
+                                    <th style="width: 35%;">
+                                        <h6>Nombre</h6>
+                                    </th>
+                                    <th class="text-center" style="width: 15%;">
+                                        <h6>Cant.</h6>
+                                    </th>
+                                    <th class="text-center" style="width: 20%;">
+                                        <h6>Precio</h6>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($pedido->productos as $producto)
+                                <tr>
+                                    <td>
+                                        {{-- <img src="{{asset('images/productos/'.$producto->id.'/'.$producto->imagenes->first()->url)}}"
+                                            width="100px" alt="..."> --}}
+                                    </td>
+                                    <td>{{$producto->nombre}}</td>
+                                    <td class="text-center">{{$producto->pivot->cantidad}}</td>
+                                    <td class="text-center">${{$producto->pivot->precio}}</td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="total" align="right">
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <td class="pr-5">Subtotal:</td>
+                                <td class="pl-5 text-right">${{$pedido->precio_total}}</td>
+                            </tr>
+                            <tr>
+                                <td class="pr-5">Envío:</td>
+                                <td class="pl-5 text-right" style="color: #d48344;"><b>Gratis</b></td>
+                            </tr>
+                            <tr>
+                                <td class="pr-5"><b>Total:</b></td>
+                                <td class="pl-5 text-right" style="color: #d48344;"><b>${{$pedido->precio_total}}</b></td>
+                            </tr>
+                    </table>
+                </div>
+            </div>
+        </div>

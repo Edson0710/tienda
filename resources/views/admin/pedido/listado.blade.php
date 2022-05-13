@@ -18,7 +18,7 @@
         <tbody>
         @foreach ($pedidos as $pedido)
           <tr @if ($pedido->estado_id == 4) style="background-color: #f5c6cb;" @endif>
-            <td>{{$pedido->codigo}}</td>
+            <td><a href="{{route('pedido.pdf', $pedido->id)}}">{{$pedido->codigo}}</a></td>
             {{-- Enlistar contenido --}}
             <td>
                 @foreach ($pedido->productos as $producto)
