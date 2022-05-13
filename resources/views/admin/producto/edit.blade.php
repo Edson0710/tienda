@@ -73,8 +73,8 @@
                     <div class="form-group">
                         <label for="activo">Activo</label>
                         <select name="activo" id="activo" class="form-control">
-                            <option value="1" {{$producto->activo ? 'selected' : ''}}>Sí</option>
-                            <option value="0" {{!$producto->activo ? 'selected' : ''}}>No</option>
+                            <option value="1" {{!$producto->trashed() ? 'selected' : ''}}>Sí</option>
+                            <option value="0" {{$producto->trashed() ? 'selected' : ''}}>No</option>
                         </select>
                     </div>
 

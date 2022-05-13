@@ -20,8 +20,8 @@ class CreateProductosTable extends Migration
             $table->decimal('menudeo', 8, 2)->nullable();
             $table->decimal('mayoreo', 8, 2)->nullable();
             $table->integer('cantidad_mayoreo')->default(0);
-            $table->boolean('activo')->default(true);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

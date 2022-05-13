@@ -10,7 +10,7 @@ class Pedido extends Model
     use HasFactory;
 
     public function productos(){
-        return $this->belongsToMany(Producto::class, 'pedido_productos')->withPivot('cantidad', 'precio');
+        return $this->belongsToMany(Producto::class, 'pedido_productos')->withPivot('cantidad', 'precio')->withTrashed();
     }
 
     public function estado(){

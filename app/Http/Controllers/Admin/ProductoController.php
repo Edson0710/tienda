@@ -21,7 +21,7 @@ class ProductoController extends Controller
      */
     public function index()
     {
-        $productos = Producto::all();
+        $productos = Producto::withTrashed()->get();
         return view('admin.producto.index',[
             'productos' => $productos
         ]);
@@ -29,7 +29,7 @@ class ProductoController extends Controller
 
     public function listado()
     {
-        $productos = Producto::all();
+        $productos = Producto::withTrashed()->get();
         return view('admin.producto.listado',[
             'productos' => $productos
         ]);
@@ -133,7 +133,7 @@ class ProductoController extends Controller
      */
     public function edit($id)
     {
-        $producto = Producto::find($id);
+        $producto = Producto::withTrashed()->find($id);
         $categorias = Categoria::all();
         return view('admin.producto.edit',[
             'producto' => $producto,
@@ -169,15 +169,20 @@ class ProductoController extends Controller
         }
 
         try{
-            $producto = Producto::find($id);
+            $producto = Producto::withTrashed()->find($id);
             $producto->nombre = $request->nombre;
             $producto->descripcion = $request->descripcion;
             $producto->menudeo = $request->menudeo;
             $producto->mayoreo = $request->mayoreo;
             $producto->cantidad_mayoreo = $request->cantidad_mayoreo;
-            $producto->activo = $request->activo;
             $producto->save();
             $producto->categorias()->sync($request->categorias);
+            if($request->activo){
+                $producto->restore();
+            }
+            else{
+                $producto->delete();
+            }
             // Eliminar imagenes
             if($request->delete_imagenes){
                 foreach($request->delete_imagenes as $imagen_eliminar){
@@ -220,8 +225,8 @@ class ProductoController extends Controller
         $pedido = PedidoProducto::where('producto_id',$id)->first();
         if($pedido){
             $producto = Producto::find($id);
-            $producto->activo = false;
-            $producto->save();
+            // Soft delete
+            $producto->delete();
             return redirect()->route('producto.listado')->with('warning','No se puede eliminar el producto ya que tiene pedidos asociados. Por lo tanto solo será desactivado.');
         }
         else{

@@ -15,7 +15,7 @@
         </thead>
         <tbody>
         @foreach ($productos as $producto)
-          <tr @if (!$producto->activo) style="background-color: #f5c6cb;" @endif>
+          <tr @if ($producto->trashed()) style="background-color: #f5c6cb;" @endif>
             <td>{{$producto->nombre}}</td>
             <td>{{$producto->descripcion}}</td>
             <td>${{$producto->menudeo}}</td>

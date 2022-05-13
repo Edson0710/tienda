@@ -43,7 +43,7 @@ class PedidoController extends Controller
      */
     public function create()
     {
-        $productos = Producto::where('activo', 1)->get();
+        $productos = Producto::get();
         return view('admin.pedido.create', [
             'productos' => $productos
         ]);
@@ -127,7 +127,7 @@ class PedidoController extends Controller
      */
     public function edit($id)
     {
-        $productos = Producto::where('activo', 1)->get();
+        $productos = Producto::get();
         $pedido = Pedido::find($id);
         return view('admin.pedido.edit',[
             'productos' => $productos,
