@@ -21,7 +21,7 @@ class ProductoController extends Controller
      */
     public function index()
     {
-        $productos = Producto::withTrashed()->get();
+        $productos = Producto::withTrashed()->with('categorias')->get();
         return view('admin.producto.index',[
             'productos' => $productos
         ]);
@@ -29,7 +29,7 @@ class ProductoController extends Controller
 
     public function listado()
     {
-        $productos = Producto::withTrashed()->get();
+        $productos = Producto::withTrashed()->with('categorias')->get();
         return view('admin.producto.listado',[
             'productos' => $productos
         ]);
